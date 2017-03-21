@@ -50,7 +50,6 @@ on init
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /storage 0550 system sdcard_r
 
-
     # Support legacy paths
     symlink /sdcard /storage/sdcard0
 
@@ -829,8 +828,13 @@ on boot
     chmod 0660 /sys/class/host_notify/usb_otg/booster
 
     # Permissions for Audio
-   chown system system /sys/devices/fe12f000.slim/es705-codec-gen0/keyword_grammar_path
-   chown system system /sys/devices/fe12f000.slim/es705-codec-gen0/keyword_net_path
+    chown system system /sys/devices/fe12f000.slim/es705-codec-gen0/keyword_grammar_path
+    chown system system /sys/devices/fe12f000.slim/es705-codec-gen0/keyword_net_path
+
+    # Fingerprint_sensor
+    chown system radio /sys/class/fingerprint/fingerprint/type_check
+    chown system radio /sys/class/fingerprint/fingerprint/name
+    chown system radio /sys/class/fingerprint/fingerprint/vendor
 
     # Accelerometer_sensor
     chown system radio /sys/class/sensors/accelerometer_sensor/raw_data
@@ -1296,8 +1300,7 @@ service qseecomd /system/bin/qseecomd
 service mpdecision /system/bin/mpdecision --avg_comp
     class main
     user root
-    group root system readproc
-    writepid /dev/cpuset/system-background/tasks
+    group system
     disabled
 
 service sensorhubservice /system/bin/sensorhubservice
@@ -1311,7 +1314,7 @@ service thermal-engine /system/vendor/bin/thermal-engine
     socket thermal-send-client stream 0666 system system
     socket thermal-recv-client stream 0660 system system
     socket thermal-recv-passive-client stream 0666 system system
-    group root system readproc wakelock
+    group root
 
 service timekeep /system/bin/timekeep restore
     class late_start
@@ -1333,6 +1336,16 @@ service rfs_access /system/bin/rfs_access
     class core
     user system
     group system net_raw
+
+service rmt_storage /system/bin/rmt_storage
+    class core
+    user root
+    disabled
+
+service qmuxd /system/bin/qmuxd
+    class core
+    user root
+    group radio audio bluetooth gps diag log
 
 service mdm_helper /system/bin/mdm_helper
     user root
@@ -1444,6 +1457,15 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     disabled
     group system wakelock
     oneshot
+
+service ril-daemon /system/bin/rild
+    class main
+    socket rild stream 660 root radio
+    socket sap_uim_socket1 stream 660 bluetooth bluetooth
+    socket rild-debug stream 660 radio system
+    socket rild-cas stream 660 casdrm mmb
+    user root
+    group radio cache inet misc audio log wakelock qcom_diag system drmrpc vpn system
 
 service olsrd /system/bin/olsrd -f /etc/wifi/olsrd.conf
     class main
