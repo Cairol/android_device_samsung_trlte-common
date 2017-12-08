@@ -1357,10 +1357,6 @@ service qmuxd /system/bin/qmuxd
     user radio
     group radio audio bluetooth wakelock gps nfc qcom_diag
 
-service netmgrd /system/bin/netmgrd
-    class main
-    group radio net_raw log qcom_diag wakelock
-
 service imsqmidaemon /system/bin/imsqmidaemon
     class main
     user system
@@ -1418,10 +1414,6 @@ service cnd /system/bin/cnd
     class late_start
     socket cnd stream 660 root inet
     disabled
-
-on property:ro.use_data_netmgrd=false
-    # netmgr not supported on specific target
-    stop netmgrd
 
 service wpa_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
