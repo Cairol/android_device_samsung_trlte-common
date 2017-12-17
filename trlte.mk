@@ -201,6 +201,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Radio
 PRODUCT_PACKAGES += \
+    libsecnativefeature \
     libcnefeatureconfig \
     libprotobuf-cpp-full
 
