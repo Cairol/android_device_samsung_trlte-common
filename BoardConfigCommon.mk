@@ -23,7 +23,6 @@ AUDIO_FEATURE_ENABLED_HWDEP_CAL := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH_BCM := true
-BCM_BLUETOOTH_TRLTE_BUG := true
 BOARD_HAVE_SAMSUNG_BLUETOOTH := true
 BOARD_CUSTOM_BT_CONFIG := device/samsung/trlte-common/bluetooth/vnd_trlte.txt
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/trlte-common/bluetooth
