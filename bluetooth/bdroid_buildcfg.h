@@ -18,14 +18,22 @@
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
 
-#define BTM_DEF_LOCAL_NAME   "Samsung Galaxy Note 4"
+#define BTM_DEF_LOCAL_NAME              "Samsung Galaxy Note 4"
 
-#define BTE_BLE_STACK_CONF_FILE "/etc/bluetooth/bt_stack.conf"
+#define BTE_BLE_STACK_CONF_FILE         "/etc/bluetooth/bt_stack.conf"
 
-/* Handsfree device */
-#define BTA_DM_COD {0x20, 0x04, 0x08}
+#define BTM_WBS_INCLUDED                TRUE
+#define BTIF_HF_WBS_PREFERRED           TRUE
+#define BLE_VND_INCLUDED                TRUE    /* Toggles support for vendor specific extensions */
+#define BTM_SCO_INCLUDED                TRUE    /* TRUE includes SCO code */
 
 /* Enable A2DP sink */
 #define BTA_AV_SINK_INCLUDED TRUE
- 
+
+/* useful for debugging */
+#define BT_TRACE_VERBOSE                TRUE
+#define BTM_PM_DEBUG                    TRUE   /* This is set to show debug trace messages for the power manager. */
+#define BTA_AG_RESULT_DEBUG             TRUE
+#define BTA_AG_DEBUG                    TRUE
+
 #endif
