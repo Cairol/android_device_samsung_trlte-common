@@ -1342,11 +1342,6 @@ service rmt_storage /system/bin/rmt_storage
     user root
     disabled
 
-service qmuxd /system/bin/qmuxd
-    class core
-    user root
-    group radio audio bluetooth gps diag log
-
 service mdm_helper /system/bin/mdm_helper
     user root
     group root system wakelock radio
@@ -1364,11 +1359,11 @@ service bridgemgrd /system/bin/bridgemgrd
     user radio
     group radio
 
-    # QMUX must be in multiple groups to support external process connections
+# QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth wakelock gps nfc qcom_diag
+    group radio audio bluetooth wakelock gps nfc diag qcom_diag log
 
 service imsqmidaemon /system/bin/imsqmidaemon
     class main
