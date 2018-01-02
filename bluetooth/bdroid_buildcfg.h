@@ -27,9 +27,6 @@
 #define BLE_VND_INCLUDED                TRUE    /* Toggles support for vendor specific extensions */
 #define BTM_SCO_INCLUDED                TRUE    /* TRUE includes SCO code */
 
-/* Enable A2DP sink */
-#define BTA_AV_SINK_INCLUDED TRUE
-
 /* useful for debugging */
 #define BT_TRACE_VERBOSE                TRUE
 #define BTM_PM_DEBUG                    TRUE   /* This is set to show debug trace messages for the power manager. */
