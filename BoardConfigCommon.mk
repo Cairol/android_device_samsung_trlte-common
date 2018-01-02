@@ -28,7 +28,6 @@ BOARD_HAVE_SAMSUNG_BLUETOOTH := true
 BOARD_CUSTOM_BT_CONFIG := device/samsung/trlte-common/bluetooth/vnd_trlte.txt
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/trlte-common/bluetooth
 BOARD_BLUETOOTH_USES_HCIATTACH_PROPERTY := false
-AUDIO_FEATURE_ENABLED_HFP := true
 
 # Kernel
 TARGET_KERNEL_CONFIG := trltexx_defconfig
