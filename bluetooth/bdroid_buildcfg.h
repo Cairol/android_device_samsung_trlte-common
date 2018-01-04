@@ -28,9 +28,9 @@
 #define BTM_SCO_INCLUDED                TRUE    /* TRUE includes SCO code */
 
 /* useful for debugging */
-#define BT_TRACE_VERBOSE                TRUE
-#define BTM_PM_DEBUG                    TRUE   /* This is set to show debug trace messages for the power manager. */
-#define BTA_AG_RESULT_DEBUG             TRUE
-#define BTA_AG_DEBUG                    TRUE
+#define BT_TRACE_VERBOSE                FALSE
+#define BTM_PM_DEBUG                    FALSE   /* This is set to show debug trace messages for the power manager. */
+#define BTA_AG_RESULT_DEBUG             FALSE
+#define BTA_AG_DEBUG                    FALSE
 
 #endif
