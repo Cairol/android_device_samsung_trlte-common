@@ -42,7 +42,7 @@ on early-init
     symlink /data/tombstones /tombstones
 
 on init
-    export LD_SHIM_LIBS rmt_storage|librmt_shim.so:/system/vendor/lib/libqc-opt.so|libshim_qcopt.so
+    export LD_SHIM_LIBS rmt_storage|librmt_shim.so:/system/vendor/lib/libqc-opt.so|libqc-opt_shim.so
     mkdir /efs 0771 system radio
 
     # Set permissions for persist partition

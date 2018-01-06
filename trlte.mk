@@ -216,7 +216,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libril_shim \
     librmt_shim \
-    libqcopt_shim
+    libqc-opt_shim
 
 # TimeKeep
 PRODUCT_PACKAGES += \
