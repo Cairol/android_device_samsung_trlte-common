@@ -71,16 +71,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.data.ds_fmc_app.mode=0 \
-    persist.data.qmi.adb_logmask=0 \
-    persist.omh.enabled=1 \
-    persist.radio.add_power_save=1 \
-    persist.radio.fill_eons=1 \
-    persist.radio.use_se_table_only=1 \
-    persist.radio.apm_sim_not_pwdn=1 \
     ro.ril.telephony.mqanelements=6 \
-    ro.telephony.mms_data_profile=5 \
-    persist.net.doxlat=true
+    telephony.lteOnGsmDevice=1 \
+    ro.telephony.default_network=9 \
+    telephony.lteOnCdmaDevice=0 \
+    ril.subscription.types=NV,RUIM \
+    rild.libargs=-d /dev/smd0 \
+    rild.libpath=/vendor/lib/libril-qc-qmi-1.so \
+    persist.radio.do_not_init_csvt=1
 
 # Ril
 PRODUCT_PROPERTY_OVERRIDES += \

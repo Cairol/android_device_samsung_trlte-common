@@ -510,8 +510,6 @@ on boot
     # 4.3 requires this
     chmod 0644 /proc/cmdline
 
-    setprop ro.telephony.call_ring.multiple false
-
     # Set SUID bit for usbhub
     chmod 4755 /system/bin/usbhub
     chmod 755 /system/bin/usbhub_init
@@ -1263,21 +1261,15 @@ on property:ro.debuggable=1
 
     # Services begin here
 
-    # SENSOR FRAMEWORK : starts fingerprintService
-service vcsFPService /system/bin/vcsFPService
-    class late_start
-    user system
-    group system
+service adsprpcd /system/bin/adsprpcd
+    class main
+    user media
+    group media
 
 service fingerprintd /system/bin/fingerprintd
     class late_start
     user system
     group input
-
-service adsprpcd /system/bin/adsprpcd
-    class main
-    user media
-    group media
 
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class main
@@ -1335,11 +1327,11 @@ service rmt_storage /system/bin/rmt_storage
     user root
     disabled
 
-service mdm_helper /system/bin/mdm_helper
-    user root
-    group root system wakelock radio
+# QMUX must be in multiple groups to support external process connections
+service qmuxd /system/bin/qmuxd
     class core
-    onrestart setprop ro.service.mdm_helper_restarted "true"
+    user root
+    group radio audio bluetooth wakelock gps nfc diag qcom_diag log
 
 service tcmd /system/bin/tcmd_mini
     class core
@@ -1352,11 +1344,16 @@ service bridgemgrd /system/bin/bridgemgrd
     user radio
     group radio
 
-# QMUX must be in multiple groups to support external process connections
-service qmuxd /system/bin/qmuxd
+service netmgrd /system/bin/netmgrd
     class main
-    user radio
-    group radio audio bluetooth wakelock gps nfc diag qcom_diag log
+    group radio net_raw log qcom_diag wakelock
+
+service mdm_helper /system/bin/mdm_helper
+    user root
+    group root system wakelock radio
+    class core
+    onrestart setprop ro.service.mdm_helper_restarted "true"
+    disabled
 
 service imsqmidaemon /system/bin/imsqmidaemon
     class main
@@ -1405,6 +1402,22 @@ on property:ro.mdm_helper_proxy_req=true
 on property:init.svc.ril-daemon=running
     setprop ro.mdm_helper_proxy_req true
 
+on property:ro.baseband=mdm
+    start mdm_helper
+
+on property:ro.baseband=mdm2
+    insmod /system/lib/modules/mhi.ko
+    write /dev/kmsg "insmod mhi.ko"
+    start mdm_helper
+
+    # Start mdm_helper_proxy
+on property:ro.mdm_helper_proxy_req=true
+    start mdm_helper_proxy
+
+	# Netmgr not supported on specific target
+on property:ro.use_data_netmgrd=false
+    stop netmgrd
+
 service atfwd /system/bin/ATFWD-daemon rmnet_mhi0
     class late_start
     user system
@@ -1451,9 +1464,8 @@ service ril-daemon /system/bin/rild
     socket rild stream 660 root radio
     socket sap_uim_socket1 stream 660 bluetooth bluetooth
     socket rild-debug stream 660 radio system
-    socket rild-cas stream 660 casdrm mmb
     user root
-    group radio cache inet misc audio sdcard_rw log wakelock qcom_diag net_raw diag wifi system drmrpc vpn system
+    group radio cache inet misc audio log readproc wakelock qcom_diag
 
 service olsrd /system/bin/olsrd -f /etc/wifi/olsrd.conf
     class main
@@ -1470,7 +1482,6 @@ on property:init.svc.macloader=stopped
     chmod 0664 /data/.cid.info
     chown system root /data/.rev
     chmod 0664 /data/.rev
-# end of wifi
 
 service macloader /system/bin/macloader
     class late_start
@@ -1677,6 +1688,12 @@ service hcidump /system/bin/sh /system/etc/hcidump.sh
     group bluetooth system net_bt_admin net_admin
     disabled
     oneshot
+
+    # SENSOR FRAMEWORK : starts fingerprintService
+service vcsFPService /system/bin/vcsFPService
+    class late_start
+    user system
+    group system
 
 on property:persist.sys.ssr.restart_level=1
     write /sys/module/subsystem_restart/parameters/restart_level 1

@@ -200,6 +200,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     libsecnativefeature \
     libcnefeatureconfig \
+    librmnetctl \
+    rmnetcli \
     libprotobuf-cpp-full
 
 # Ramdisk
@@ -214,7 +216,6 @@ PRODUCT_PACKAGES += \
 
 # Shims
 PRODUCT_PACKAGES += \
-    libril_shim \
     librmt_shim \
     libqc-opt_shim
 
