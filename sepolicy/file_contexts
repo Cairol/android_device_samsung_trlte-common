@@ -37,6 +37,11 @@
 /data/data/data_usage_rx                               	u:object_r:radio_data_file:s0
 /data/data/data_usage_tx                               	u:object_r:radio_data_file:s0
 
+# RIL - Variant Blobs
+/system/blobs/(.*)/bin/ks                               u:object_r:mdm_helper_exec:s0
+/system/blobs/(.*)/bin/mdm_helper                       u:object_r:mdm_helper_exec:s0
+/system/blobs/(.*)/bin/mdm_helper_proxy                 u:object_r:mdm_helper_exec:s0
+
 # Sysfs entry for the RmNet function driver
 /sys/class/android_usb/f_rmnet_smd_sdio/transport  --  u:object_r:sysfs_rmnet:s0
 /sys/devices/virtual/android_usb/android0/f_rmnet_smd_sdio/transport  --  u:object_r:sysfs_rmnet:s0

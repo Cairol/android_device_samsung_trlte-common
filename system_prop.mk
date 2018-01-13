@@ -78,7 +78,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ril.subscription.types=NV,RUIM \
     rild.libargs=-d /dev/smd0 \
     rild.libpath=/vendor/lib/libril-qc-qmi-1.so \
-    persist.radio.do_not_init_csvt=1
+    persist.radio.do_not_init_csvt=1 \
+    persist.radio.apm_sim_not_pwdn=1
 
 # Ril
 PRODUCT_PROPERTY_OVERRIDES += \

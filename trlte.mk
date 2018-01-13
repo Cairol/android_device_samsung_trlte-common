@@ -216,7 +216,6 @@ PRODUCT_PACKAGES += \
 
 # Shims
 PRODUCT_PACKAGES += \
-    librmt_shim \
     libqc-opt_shim
 
 # TimeKeep

@@ -1406,8 +1406,9 @@ on property:ro.baseband=mdm
     start mdm_helper
 
 on property:ro.baseband=mdm2
-    insmod /system/lib/modules/mhi.ko
-    write /dev/kmsg "insmod mhi.ko"
+#   apq8084 kernel has built-in MHI driver
+#    insmod /system/lib/modules/mhi.ko
+#    write /dev/kmsg "insmod mhi.ko"
     start mdm_helper
 
     # Start mdm_helper_proxy

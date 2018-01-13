@@ -54,9 +54,6 @@ TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 # Power HAL
 TARGET_POWERHAL_SET_INTERACTIVE_EXT := device/samsung/trlte-common/power/power_ext.c
 
-# Data services
-USE_DEVICE_SPECIFIC_DATASERVICES := true
-
 # Radio
 TARGET_RIL_VARIANT := caf
 BOARD_RIL_CLASS := ../../../device/samsung/trlte-common/ril
