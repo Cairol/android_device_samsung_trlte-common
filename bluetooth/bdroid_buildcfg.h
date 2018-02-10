@@ -27,7 +27,13 @@
 #define BLE_VND_INCLUDED                TRUE    /* Toggles support for vendor specific extensions */
 #define BTM_SCO_INCLUDED                TRUE    /* TRUE includes SCO code */
 
-/* useful for debugging */
+#define BLUETOOTH_QTI_SW                TRUE    /* This feature is used to update any QCOM related changes in the stack*/
+#define BTM_ALLOW_CONN_IF_NONDISCOVER   FALSE   /* Should connections to unknown devices be allowed when not discoverable? */
+
+/* to be tested later... */
+#define BTM_SCO_HCI_INCLUDED            FALSE   /* TRUE includes SCO over HCI code */
+
+/* TRUE = useful for debugging */
 #define BT_TRACE_VERBOSE                FALSE
 #define BTM_PM_DEBUG                    FALSE   /* This is set to show debug trace messages for the power manager. */
 #define BTA_AG_RESULT_DEBUG             FALSE
