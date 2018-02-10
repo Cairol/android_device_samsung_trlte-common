@@ -198,7 +198,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Radio
 PRODUCT_PACKAGES += \
-    libsecnativefeature \
     libcnefeatureconfig \
     librmnetctl \
     rmnetcli \
