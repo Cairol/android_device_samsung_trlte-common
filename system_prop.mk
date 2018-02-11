@@ -39,18 +39,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.izat.service_mask=0x0 \
     persist.gps.qc_nlp_in_use=0
 
-# Nitz
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.rild.nitz_plmn="" \
-    persist.rild.nitz_long_ons_0="" \
-    persist.rild.nitz_long_ons_1="" \
-    persist.rild.nitz_long_ons_2="" \
-    persist.rild.nitz_long_ons_3="" \
-    persist.rild.nitz_short_ons_0="" \
-    persist.rild.nitz_short_ons_1="" \
-    persist.rild.nitz_short_ons_2="" \
-    persist.rild.nitz_short_ons_3=""
-
 # Qualcomm
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true \
@@ -60,25 +48,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.nfc.sec_hal=true
 
-# Radio
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ril.telephony.mqanelements=6 \
-    telephony.lteOnGsmDevice=1 \
-    ro.telephony.default_network=9 \
-    telephony.lteOnCdmaDevice=0 \
-    ril.subscription.types=NV,RUIM \
-    rild.libargs=-d /dev/smd0 \
-    rild.libpath=/vendor/lib/libril-qc-qmi-1.so \
-    persist.radio.do_not_init_csvt=1 \
-    persist.radio.apm_sim_not_pwdn=1
-
 # Ril
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=trlteRIL
-
-# Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.call_ring.multiple=0
 
 # Sensors
 PRODUCT_PROPERTY_OVERRIDES += \
