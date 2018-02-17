@@ -192,10 +192,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     power.apq8084
 
-# QCOM perf lib
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=/vendor/lib/libqc-opt.so
-
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
