@@ -91,6 +91,8 @@ persist.sys.isUsbOtgEnabled=true
 
 # Vm
 dalvik.vm.heapgrowthlimit=256m
+dalvik.vm.heapminfree=2m
+dalvik.vm.dex2oat-swap=false
 
 # Wifi
 wifi.interface=wlan0
