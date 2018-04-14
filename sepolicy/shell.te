@@ -1,2 +1,4 @@
-allow shell su:process signal;
-
+userdebug_or_eng(`
+  # su domain only exists on userdebug or eng builds
+  allow shell su:process signal;
+')
