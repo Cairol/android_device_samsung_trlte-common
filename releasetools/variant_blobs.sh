@@ -43,23 +43,36 @@ fi
 
 echo "Device with bootloader $BOOTLOADER requires $VARIANT blobs"
 
-BLOBBASE=/system/blobs/$VARIANT
 
-if [ -d $BLOBBASE ]; then
-  cd $BLOBBASE
+if [ -d /system/blobs ]; then
+    BLOBBASE=/system/blobs/$VARIANT
+    if [ -d $BLOBBASE ]; then
+        cd $BLOBBASE
 
-  for FILE in `find . -type f` ; do
-    mkdir -p `dirname /system/$FILE`
-    better_copy $FILE /system/$FILE
-  done
+        for FILE in `find . -type f` ; do
+            mkdir -p `dirname /system/$FILE`
+            better_copy $FILE /system/$FILE
+        done
 
-  for FILE in vendor/bin/* ; do
-    chmod 755 /system/$FILE
-  done
+        for FILE in vendor/bin/* ; do
+            chmod 755 /system/$FILE
+        done
+
+    else
+        echo "Expected blob variant directory does not exist!"
+        exit 1
+    fi
+
+    # clean up blob directory
+    cd /system
+    rm -rf blobs/*
+    rmdir blobs
+
 else
-  echo "Expected source directory does not exist!"
-  exit 1
+    echo "Expected blob directory does not exist!"
+    exit 1
 fi
+
 
 if [ -f $MIXER_PATHS_EUR ] ; then
   . $MIXER_PATHS_EUR
