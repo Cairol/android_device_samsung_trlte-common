@@ -14,5 +14,4 @@
 -->
 <resources>
     <bool name="profile_supported_avrcp_controller">true</bool>
-    <bool name="profile_supported_hfpclient">true</bool>
 </resources>

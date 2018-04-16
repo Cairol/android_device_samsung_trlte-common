@@ -39,7 +39,4 @@ static inline const char* BtmGetDefaultName()
 
 #define BTE_BLE_STACK_CONF_FILE "/etc/bluetooth/bt_stack.conf"
 
-/* Handsfree device */
-#define BTA_DM_COD { 0x20, 0x04, 0x08 }
-
 #endif
