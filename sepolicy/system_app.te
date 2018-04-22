@@ -3,6 +3,7 @@ allow system_app time_daemon:unix_stream_socket connectto;
 allow system_app sysfs_sec:file rw_file_perms;
 allow system_app sysfs_sec:dir rw_dir_perms;
 allow system_app sysfs_display:file rw_file_perms;
+allow system_app sysfs_mdnie:file rw_file_perms;
 allow system_app sysfs_vibeamp:file rw_file_perms;
 allow system_app self:process ptrace;
 allow system_app fingerprintd:binder call;
