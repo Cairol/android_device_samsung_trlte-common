@@ -190,7 +190,6 @@ PRODUCT_PACKAGES += \
     macloader \
     hostapd \
     libwpa_client \
-    wificond \
     wifiloader \
     wifilogd \
     wlutil \
