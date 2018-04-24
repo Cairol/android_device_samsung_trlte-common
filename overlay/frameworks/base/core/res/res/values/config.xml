@@ -204,7 +204,7 @@
     <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
 
     <!-- Boolean indicating whether the wifi chipset has background scan support -->
-    <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
+    <bool translatable="false" name="config_wifi_background_scan_support">false</bool>
 
     <!-- string indicating the OUI that should be used when generating random mac addresses -->
     <string  translatable="false" name="config_wifi_random_mac_oui">92-68-C3</string>
@@ -248,7 +248,7 @@
     </integer-array>
 
     <!-- Wifi driver supports batched scan -->
-    <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
+    <bool translatable="false" name="config_wifi_batched_scan_supported">false</bool>
 
     <!-- MMS user agent string -->
     <string name="config_mms_user_agent" translatable="false">note4</string>
