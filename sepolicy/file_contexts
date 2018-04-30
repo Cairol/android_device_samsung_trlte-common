@@ -67,6 +67,9 @@
 /sys/devices/virtual/graphics/fb1/product_description  -- u:object_r:surfaceflinger_sysfs:s0
 /sys/devices/virtual/graphics/fb1/vendor_name          -- u:object_r:surfaceflinger_sysfs:s0
 
+# mpdecision
+/sys/devices/fd900000.qcom,mdss_mdp/power/runtime_status    u:object_r:sysfs_runtime_status:s0
+
 # sysfs
 /sys/devices(/.*)?/input/input[0-9]+/enabled            u:object_r:sysfs_hal_pwr:s0
 /sys/devices/(.*)/video4linux/(.*)/name                 u:object_r:sysfs_camera:s0
