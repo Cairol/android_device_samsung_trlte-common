@@ -93,6 +93,10 @@ on fs
     write /sys/kernel/boot_adsp/boot 1
     setprop qcom.audio.init complete
 
+    # Create directory for sensors service
+    mkdir /persist/sensors 0771 system system
+    restorecon_recursive /persist/sensors
+
 on post-fs
     # Increase max readahead size to 1024 KB
     write /sys/block/mmcblk0/queue/read_ahead_kb 1024
