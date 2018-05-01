@@ -185,12 +185,12 @@ on post-fs-data
     # We chown/chmod /persist again so because mount is run as root + defaults
     chown system system /persist
     chmod 0771 /persist
+
+    # Chown polling nodes as needed from UI running on system server
     chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
     chmod 0664 /sys/devices/platform/msm_sdcc.2/polling
     chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
     chmod 0664 /sys/devices/platform/msm_sdcc.4/polling
-
-    # Chown polling nodes as needed from UI running on system server
     chown system system /sys/devices/platform/msm_sdcc.1/polling
     chown system system /sys/devices/platform/msm_sdcc.2/polling
     chown system system /sys/devices/platform/msm_sdcc.3/polling
@@ -443,10 +443,6 @@ on boot
 
     # 4.3 requires this
     chmod 0644 /proc/cmdline
-
-    # Set SUID bit for usbhub
-    chmod 4755 /system/bin/usbhub
-    chmod 755 /system/bin/usbhub_init
 
     # Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
