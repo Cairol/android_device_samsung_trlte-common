@@ -22,4 +22,6 @@ allow system_app time_data_file:dir { create_dir_perms search };
 allow system_app time_data_file:file create_file_perms;
 set_prop(system_app, timekeep_prop)
 
+get_prop(system_app, qemu_hw_mainkeys_prop)
+
 # >neverallow< allow system_app netd_service:service_manager find;
