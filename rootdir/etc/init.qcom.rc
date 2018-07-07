@@ -411,8 +411,6 @@ on boot
     # Audience ES705 UART
     mkdir /data/firmware
     chmod 0660 /dev/ttyHS3
-    # setting owner and group here prevents firmware loading !!!
-    # chown media audio /dev/ttyHS3
     chmod 0770 /data/firmware
     chown system system /data/firmware
 
@@ -1550,7 +1548,8 @@ on property:sys.boot_completed=1
     chown system radio /sys/class/sec/sec_epen/epen_delay_time
     chown system radio /sys/class/sec/sec_epen/boost_level
 
-    # Set owner and group for Audience ES705 UART
+    # Audience ES705 UART
+    # Late chown to make sure the kernel can access the device
     chown media audio /dev/ttyHS3
 
     # Post boot services

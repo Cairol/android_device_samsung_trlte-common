@@ -28,6 +28,13 @@
 # Macloader
 /(vendor|system/vendor)/bin/macloader                    u:object_r:macloader_exec:s0
 
+# mDNIe sysfs
+/sys/devices/virtual/lcd/panel/panel/auto_brightness    u:object_r:sysfs_mdnie:s0
+/sys/devices/virtual/mdnie/mdnie/accessibility          u:object_r:sysfs_mdnie:s0
+/sys/devices/virtual/mdnie/mdnie/mode                   u:object_r:sysfs_mdnie:s0
+/sys/devices/virtual/mdnie/mdnie/outdoor                u:object_r:sysfs_mdnie:s0
+/sys/devices/virtual/mdnie/mdnie/scenario               u:object_r:sysfs_mdnie:s0
+
 # NFC
 /dev/sec-nfc                                            u:object_r:nfc_device:s0
 /dev/bcm2079x                                           u:object_r:nfc_device:s0
@@ -61,31 +68,25 @@
 /efs/hw_offset                                          u:object_r:sensors_efs_file:s0
 /efs/prox_cal                                           u:object_r:sensors_efs_file:s0
 
+# Shell
+/system/vendor/bin/init\.qcom\.usb\.sh                  u:object_r:qti_init_shell_exec:s0
+
 # Surfaceflinger
 /sys/devices/virtual/graphics/fb1/format_3d            -- u:object_r:surfaceflinger_sysfs:s0
 /sys/devices/virtual/graphics/fb1/hpd                  -- u:object_r:surfaceflinger_sysfs:s0
 /sys/devices/virtual/graphics/fb1/product_description  -- u:object_r:surfaceflinger_sysfs:s0
 /sys/devices/virtual/graphics/fb1/vendor_name          -- u:object_r:surfaceflinger_sysfs:s0
 
-# mpdecision
-/sys/devices/fd900000.qcom,mdss_mdp/power/runtime_status    u:object_r:sysfs_runtime_status:s0
-
 # sysfs
 /sys/devices(/.*)?/input/input[0-9]+/enabled            u:object_r:sysfs_hal_pwr:s0
 /sys/devices/(.*)/video4linux/(.*)/name                 u:object_r:sysfs_camera:s0
 /sys/devices/battery.[0-9]+/power_supply/battery(/.*)?  u:object_r:sysfs_batteryinfo:s0
 /sys/devices/fd900000.qcom,mdss_mdp/caps                u:object_r:sysfs_hal_gralloc:s0
+/sys/devices/fd900000.qcom,mdss_mdp/power/runtime_status u:object_r:sysfs_runtime_status:s0
 /sys/devices/qcom,mdm[01].[0-9]+/esoc[0-9](/.*)?        u:object_r:sysfs_esoc:s0
 /sys/devices/virtual/graphics/fb[0-2]/msm_.*            u:object_r:sysfs_hal_gralloc:s0
 /sys/module/dhd/parameters/firmware_path                u:object_r:sysfs_wifi_writeable:s0
 /sys/module/dhd/parameters/nvram_path                   u:object_r:sysfs_wifi_writeable:s0
-
-# mdnie sysfs
-/sys/devices/virtual/lcd/panel/panel/auto_brightness    u:object_r:sysfs_mdnie:s0
-/sys/devices/virtual/mdnie/mdnie/accessibility          u:object_r:sysfs_mdnie:s0
-/sys/devices/virtual/mdnie/mdnie/mode                   u:object_r:sysfs_mdnie:s0
-/sys/devices/virtual/mdnie/mdnie/outdoor                u:object_r:sysfs_mdnie:s0
-/sys/devices/virtual/mdnie/mdnie/scenario               u:object_r:sysfs_mdnie:s0
 
 # TimeKeep
 /(vendor|system/vendor)/bin/timekeep                    u:object_r:timekeep_exec:s0
