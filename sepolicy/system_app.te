@@ -6,10 +6,10 @@ allow system_app sysfs_display:file rw_file_perms;
 allow system_app sysfs_mdnie:file rw_file_perms;
 allow system_app sysfs_vibeamp:file rw_file_perms;
 allow system_app self:process ptrace;
-allow system_app fingerprintd:binder call;
-allow system_app sensorhubservice:binder call;
 
 # Allow system apps to interact via binder calls
+binder_call(system_app, fingerprintd)
+binder_call(system_app, sensorhubservice)
 binder_call(system_app, storaged)
 binder_call(system_app, wificond)
 
