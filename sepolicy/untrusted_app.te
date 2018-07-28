@@ -1,0 +1,2 @@
+allow untrusted_app self:udp_socket { ioctl };
+get_prop(untrusted_app, opengles_prop)
