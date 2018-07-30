@@ -10,7 +10,6 @@ allow system_app self:process ptrace;
 # Allow system apps to interact via binder calls
 binder_call(system_app, fingerprintd)
 binder_call(system_app, sensorhubservice)
-binder_call(system_app, storaged)
 binder_call(system_app, wificond)
 
 # For com.validity.fingerprint
