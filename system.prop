@@ -65,7 +65,7 @@ ro.qualcomm.perf.cores_online=2
 
 # Qualcomm
 persist.timed.enable=true
-ro.vendor.extension_library=/vendor/lib/libqc-opt.so
+ro.vendor.extension_library=/vendor/lib/libqti-perfd-client.so
 
 # Radio
 persist.data.ds_fmc_app.mode=0
