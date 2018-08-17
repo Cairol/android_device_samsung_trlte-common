@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
-     Copyright (C) 2017 The LineageOS Project
+     Copyright (C) 2016 The CyanogenMod Project
+     Copyright (C) 2018 The LineageOS Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,6 +16,6 @@
      limitations under the License.
 -->
 <resources>
-    <!-- Whether notify fingerprint client of successful cancelled authentication -->
-    <bool name="config_notifyClientOnFingerprintCancelSuccess">true</bool>
+    <bool name="call_recording_enabled">true</bool>
+    <integer name="call_recording_audio_source">4</integer>
 </resources>
