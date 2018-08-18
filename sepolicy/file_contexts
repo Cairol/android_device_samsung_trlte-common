@@ -77,8 +77,10 @@
 /sys/devices/virtual/graphics/fb1/product_description  -- u:object_r:surfaceflinger_sysfs:s0
 /sys/devices/virtual/graphics/fb1/vendor_name          -- u:object_r:surfaceflinger_sysfs:s0
 
+# sysfs access for context hal_power_default
+#  (must match to *_POWER defines in power_ext.c file)
+/sys/devices(/.*)?/input/input(1|2|18)/enabled          u:object_r:sysfs_hal_pwr:s0
 # sysfs
-/sys/devices(/.*)?/input/input[0-9]+/enabled            u:object_r:sysfs_hal_pwr:s0
 /sys/devices/(.*)/video4linux/(.*)/name                 u:object_r:sysfs_camera:s0
 /sys/devices/battery.[0-9]+/power_supply/battery(/.*)?  u:object_r:sysfs_batteryinfo:s0
 /sys/devices/fd900000.qcom,mdss_mdp/caps                u:object_r:sysfs_hal_gralloc:s0
