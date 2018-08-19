@@ -86,7 +86,9 @@
 /sys/devices/fd900000.qcom,mdss_mdp/caps                u:object_r:sysfs_hal_gralloc:s0
 /sys/devices/fd900000.qcom,mdss_mdp/power/runtime_status u:object_r:sysfs_runtime_status:s0
 /sys/devices/qcom,mdm[01].[0-9]+/esoc[0-9](/.*)?        u:object_r:sysfs_esoc:s0
-/sys/devices/virtual/graphics/fb[0-2]/msm_.*            u:object_r:sysfs_hal_gralloc:s0
+/sys/devices/virtual/graphics/fb0/msm_.*                u:object_r:sysfs_hal_gralloc:s0
+/sys/devices/virtual/graphics/fb1/msm_.*                u:object_r:sysfs_hal_gralloc:s0
+/sys/devices/virtual/graphics/fb2/msm_.*                u:object_r:sysfs_hal_gralloc:s0
 /sys/module/dhd/parameters/firmware_path                u:object_r:sysfs_wifi_writeable:s0
 /sys/module/dhd/parameters/nvram_path                   u:object_r:sysfs_wifi_writeable:s0
 
