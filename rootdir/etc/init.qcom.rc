@@ -133,6 +133,9 @@ on post-fs-data
     mkdir /data/media 0775 media_rw media_rw
     chown media_rw media_rw /data/media
 
+    # Remove old mpdecision data
+    rm /data/system/perfd/default_values
+
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
 
     # Create the directories used by the Wireless subsystem
@@ -1203,7 +1206,6 @@ service mpdecision /system/vendor/bin/mpdecision --avg_comp
     class main
     user root
     group root readproc
-    disabled
 
 service sensorhubservice /system/vendor/bin/sensorhubservice
     class main
@@ -1252,32 +1254,24 @@ service qmuxd /system/vendor/bin/qmuxd
 service mdm_helper /system/vendor/bin/mdm_helper
     class core
     onrestart setprop ro.service.mdm_helper_restarted "true"
-    disabled
+    group root system radio oem_2950 wakelock
 
 service mdm_helper_proxy /system/vendor/bin/mdm_helper_proxy
     class core
     user system
-    group system
+    group system wakelock
     disabled
-
-service netmgrd /system/vendor/bin/netmgrd
-    class main
-    group radio system wakelock oem_2950
 
 on property:init.svc.ril-daemon=running
     setprop ro.mdm_helper_proxy_req true
 
-on property:ro.baseband=mdm
-    start mdm_helper
-
-on property:ro.baseband=mdm2
-    insmod /system/lib/modules/mhi.ko
-    write /dev/kmsg "insmod mhi.ko"
-    start mdm_helper
-
     # Start mdm_helper_proxy
 on property:ro.mdm_helper_proxy_req=true
     start mdm_helper_proxy
+
+    # Stop mdm_helper_proxy in case of shutdown
+on property:sys.shutdown.requested=*
+    stop mdm_helper_proxy
 
 service p2p_supplicant /vendor/bin/hw/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
@@ -1365,9 +1359,6 @@ on property:sys.boot_completed=1
     # Audience ES705 UART
     # Late chown to make sure the kernel can access the device
     chown media audio /dev/ttyHS3
-
-    # Post boot services
-    start mpdecision
 
     # Symlink directories to access telephony.db and preferred-apn.xml required by libsec-ril
     symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
