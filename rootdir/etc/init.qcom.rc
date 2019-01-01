@@ -93,8 +93,10 @@ on fs
     write /sys/kernel/boot_adsp/boot 1
     setprop qcom.audio.init complete
 
-    # Create directory for sensors service
+    # Sensors service
     mkdir /persist/sensors 0771 system system
+    write /persist/sensors/sensors_settings 1
+    chmod 660 /persist/sensors/sensors_settings
     restorecon_recursive /persist/sensors
 
 on post-fs
