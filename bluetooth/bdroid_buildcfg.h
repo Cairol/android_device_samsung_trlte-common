@@ -31,17 +31,31 @@ static inline const char* BtmGetDefaultName()
     if (strstr(product_device, "tblte"))
         return "Samsung Galaxy Note Edge";
 
-    // Fallback to ro.product.model
-    return "";
+    // Fallback to generic name
+    return "Samsung Galaxy Note";
 }
 
 #undef PROPERTY_VALUE_MAX
 
-#define BTM_DEF_LOCAL_NAME BtmGetDefaultName()
+#define BTM_DEF_LOCAL_NAME 		BtmGetDefaultName()
 
-#define BTE_BLE_STACK_CONF_FILE "/etc/bluetooth/bt_stack.conf"
+#define BTE_BLE_STACK_CONF_FILE         "/etc/bluetooth/bt_stack.conf"
 
-/* Handsfree device */
-#define BTA_DM_COD { 0x20, 0x04, 0x08 }
+#define BTM_WBS_INCLUDED                TRUE
+#define BTIF_HF_WBS_PREFERRED           TRUE
+#define BLE_VND_INCLUDED                TRUE    /* Toggles support for vendor specific extensions */
+#define BTM_SCO_INCLUDED                TRUE    /* TRUE includes SCO code */
+
+#define BLUETOOTH_QTI_SW                TRUE    /* This feature is used to update any QCOM related changes in the stack*/
+#define BTM_ALLOW_CONN_IF_NONDISCOVER   FALSE   /* Should connections to unknown devices be allowed when not discoverable? */
+
+/* to be tested later... */
+#define BTM_SCO_HCI_INCLUDED            FALSE   /* TRUE includes SCO over HCI code */
+
+/* TRUE = useful for debugging */
+#define BT_TRACE_VERBOSE                FALSE
+#define BTM_PM_DEBUG                    FALSE   /* This is set to show debug trace messages for the power manager. */
+#define BTA_AG_RESULT_DEBUG             FALSE
+#define BTA_AG_DEBUG                    FALSE
 
 #endif
