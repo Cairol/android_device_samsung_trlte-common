@@ -43,6 +43,7 @@ allow init {
     sysfs_ssr_toggle
     sysfs_usb_otg
     sysfs_wlan_fwpath
+    sysfs_fingerprint
 }:file setattr;
 
 allow init {
@@ -63,4 +64,3 @@ allow init {
     sysfs_thermal
 }:file w_file_perms;
 
-allow init sysfs_fingerprint:file setattr;

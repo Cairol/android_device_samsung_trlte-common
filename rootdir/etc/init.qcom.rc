@@ -669,10 +669,6 @@ on boot
     chown system system /sys/class/lcd/panel/alpm_backlight
     chmod 0660 /sys/class/lcd/panel/alpm_backlight
 
-    # Auto Brightness
-    chown system system  /sys/class/backlight/panel/auto_brightness
-    chmod 0660 /sys/class/backlight/panel/auto_brightness
-
     # Permissions for TCON
     chown system system /sys/class/tcon/tcon/lux
     chown system system /sys/class/tcon/tcon/auto_br
@@ -1188,7 +1184,96 @@ on property:ro.debuggable=1
     chmod 0666 /sys/class/mhl/test_case
     chmod 0666 /sys/class/mhl/connection
 
-# Services begin here
+on property:init.svc.ril-daemon=running
+    setprop ro.mdm_helper_proxy_req true
+
+    # Start mdm_helper_proxy
+on property:ro.mdm_helper_proxy_req=true
+    start mdm_helper_proxy
+
+    # Stop mdm_helper_proxy in case of shutdown
+on property:sys.shutdown.requested=*
+    stop mdm_helper_proxy
+
+on property:init.svc.macloader=stopped
+    chown system root /data/.cid.info
+    chmod 0664 /data/.cid.info
+    chown system root /data/.rev
+    chmod 0664 /data/.rev
+
+on property:crypto.driver.load=1
+    insmod /system/lib/modules/qce.ko
+    insmod /system/lib/modules/qcedev.ko
+
+on property:crypto.driver.load=0
+    exec /system/bin/rmmod qcedev.ko
+    exec /system/bin/rmmod qce.ko
+
+on property:sys.boot_completed=1
+    write /sys/block/mmcblk0/queue/scheduler deadline
+
+    # Enable ZRAM on boot_completed
+    swapon_all fstab.qcom
+
+    # Permissions for S-Pen
+    chmod 0660 /dev/input/event18
+    chmod 0660 /dev/input/event19
+    chown system input /dev/input/event18
+    chown system input /dev/input/event19
+    chmod 0660 /sys/class/input/input18/enabled
+    chown system system /sys/class/input/input18/enabled
+    chown system radio /sys/class/sec/sec_epen/epen_firm_update
+    chown system radio /sys/class/sec/sec_epen/epen_reset
+    chown system radio /sys/class/sec/sec_epen/epen_reset_result
+    chown system radio /sys/class/sec/sec_epen/epen_checksum
+    chown system radio /sys/class/sec/sec_epen/epen_checksum_result
+    chown system radio /sys/class/sec/sec_epen/epen_saving_mode
+    chown system radio /sys/class/sec/sec_epen/epen_connection
+    chown system radio /sys/class/sec/sec_epen/epen_tuning_version
+    chown system radio /sys/class/sec/sec_epen/epen_firm_update_status
+    chown system radio /sys/class/sec/sec_epen/epen_firm_version
+    chown system radio /sys/class/sec/sec_epen/epen_delay_time
+    chown system radio /sys/class/sec/sec_epen/boost_level
+
+    # Set idle GPU to 133 Mhz
+    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 7
+
+    #Audience ES705 UART
+    # Late chown to make sure the kernel can access the device
+    chown media audio /dev/ttyHS3
+
+    # Symlink directories to access telephony.db and preferred-apn.xml required by libsec-ril
+    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
+    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs
+
+on property:ro.data.large_tcp_window_size=true
+    # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
+    write /proc/sys/net/ipv4/tcp_adv_win_scale  1
+
+on property:persist.sys.ssr.restart_level=1
+    write /sys/module/subsystem_restart/parameters/restart_level 1
+
+on property:persist.sys.ssr.restart_level=3
+    write /sys/module/subsystem_restart/parameters/restart_level 3
+
+on property:service.bootanim.exit=1
+    #write /sys/module/rmnet_usb/parameters/dump_ctrl_msg 2
+    # To allow interfaces to get v6 address when tethering is enabled
+    write /proc/sys/net/ipv6/conf/rmnet_data0/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data1/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data2/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data3/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data4/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data5/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data6/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_data7/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_mhi0/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_mhi1/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_mhi2/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_mhi3/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_usb0/accept_ra 2
+
+##### Services begin here #####
 
 service adsprpcd /system/vendor/bin/adsprpcd
     class main
@@ -1260,17 +1345,6 @@ service mdm_helper_proxy /system/vendor/bin/mdm_helper_proxy
     group system wakelock
     disabled
 
-on property:init.svc.ril-daemon=running
-    setprop ro.mdm_helper_proxy_req true
-
-    # Start mdm_helper_proxy
-on property:ro.mdm_helper_proxy_req=true
-    start mdm_helper_proxy
-
-    # Stop mdm_helper_proxy in case of shutdown
-on property:sys.shutdown.requested=*
-    stop mdm_helper_proxy
-
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -O/data/vendor/wifi/wpa/sockets -puse_p2p_group_interface=1 \
     -g@android:wpa_wlan0
@@ -1302,61 +1376,6 @@ service wifiloader /system/bin/wifiloader
      oneshot
      seclabel u:r:wifiloader:s0
 
-on property:init.svc.macloader=stopped
-    chown system root /data/.cid.info
-    chmod 0664 /data/.cid.info
-    chown system root /data/.rev
-    chmod 0664 /data/.rev
-
-on property:crypto.driver.load=1
-    insmod /system/lib/modules/qce.ko
-    insmod /system/lib/modules/qcedev.ko
-
-on property:crypto.driver.load=0
-    exec /system/bin/rmmod qcedev.ko
-    exec /system/bin/rmmod qce.ko
-
-on property:sys.boot_completed=1
-    write /sys/block/mmcblk0/queue/scheduler deadline
-
-    # Enable ZRAM on boot_completed
-    swapon_all fstab.qcom
-
-    # Permissions for S-Pen
-    chmod 0660 /dev/input/event18
-    chmod 0660 /dev/input/event19
-    chown system input /dev/input/event18
-    chown system input /dev/input/event19
-    chmod 0660 /sys/class/input/input18/enabled
-    chown system system /sys/class/input/input18/enabled
-    chown system radio /sys/class/sec/sec_epen/epen_firm_update
-    chown system radio /sys/class/sec/sec_epen/epen_reset
-    chown system radio /sys/class/sec/sec_epen/epen_reset_result
-    chown system radio /sys/class/sec/sec_epen/epen_checksum
-    chown system radio /sys/class/sec/sec_epen/epen_checksum_result
-    chown system radio /sys/class/sec/sec_epen/epen_saving_mode
-    chown system radio /sys/class/sec/sec_epen/epen_connection
-    chown system radio /sys/class/sec/sec_epen/epen_tuning_version
-    chown system radio /sys/class/sec/sec_epen/epen_firm_update_status
-    chown system radio /sys/class/sec/sec_epen/epen_firm_version
-    chown system radio /sys/class/sec/sec_epen/epen_delay_time
-    chown system radio /sys/class/sec/sec_epen/boost_level
-
-    # Set idle GPU to 133 Mhz
-    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 7
-
-    #Audience ES705 UART
-    # Late chown to make sure the kernel can access the device
-    chown media audio /dev/ttyHS3
-
-    # Symlink directories to access telephony.db and preferred-apn.xml required by libsec-ril
-    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
-    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs
-
-on property:ro.data.large_tcp_window_size=true
-    # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
-    write /proc/sys/net/ipv4/tcp_adv_win_scale  1
-
 service charger /charger
     class charger
     seclabel u:r:charger:s0
@@ -1371,27 +1390,4 @@ service vcsFPService /system/vendor/bin/vcsFPService
     class late_start
     user system
     group system
-
-on property:persist.sys.ssr.restart_level=1
-    write /sys/module/subsystem_restart/parameters/restart_level 1
-
-on property:persist.sys.ssr.restart_level=3
-    write /sys/module/subsystem_restart/parameters/restart_level 3
-
-on property:service.bootanim.exit=1
-    #write /sys/module/rmnet_usb/parameters/dump_ctrl_msg 2
-    # To allow interfaces to get v6 address when tethering is enabled
-    write /proc/sys/net/ipv6/conf/rmnet_data0/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_data1/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_data2/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_data3/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_data4/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_data5/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_data6/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_data7/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_mhi0/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_mhi1/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_mhi2/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_mhi3/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb0/accept_ra 2
 

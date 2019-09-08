@@ -123,6 +123,10 @@
 # sysfs - uart
 /sys/devices/[a-f0-9]+\.uart(/.*)?                      u:object_r:sysfs_msmuart_file:s0
 
+# sysfs - usb
+/sys/devices/[a-f0-9]+.ssusb/[a-f0-9]+.dwc3/gadget/lun[0-9]+(/.*)?      u:object_r:sysfs_android_usb:s0
+/sys/devices/virtual/host_notify/usb_otg(/.*)?                          u:object_r:sysfs_usb_otg:s0
+
 # Touch
 /system/vendor/bin/hw/vendor\.lineage\.touch@1\.0-service\.samsung           u:object_r:hal_lineage_touch_default_exec:s0
 
@@ -132,6 +136,3 @@
 # Wifiloader
 /system/bin/wifiloader                                  u:object_r:wifiloader_exec:s0
 
-# sysfs - usb
-/sys/devices/[a-f0-9]+.ssusb/[a-f0-9]+.dwc3/gadget/lun[0-9]+(/.*)?                           u:object_r:sysfs_android_usb:s0
-/sys/devices/virtual/host_notify/usb_otg(/.*)?                                               u:object_r:sysfs_usb_otg:s0
