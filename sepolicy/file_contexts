@@ -161,3 +161,6 @@
 /system/blobs/(.*)/vendor/bin/mdm_helper                u:object_r:mdm_helper_exec:s0
 /system/blobs/(.*)/vendor/bin/mdm_helper_proxy          u:object_r:mdm_helper_exec:s0
 /system/blobs/(.*)/vendor/bin/qmuxd                     u:object_r:qmuxd_exec:s0
+
+# audio mixer paths vendor config
+/(vendor|system/vendor)/etc/mixer_paths.xml             u:object_r:vendor_configs_file:s0
