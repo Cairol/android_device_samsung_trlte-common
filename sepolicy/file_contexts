@@ -155,3 +155,9 @@
 
 # timekeep
 /(vendor|system/vendor)/bin/timekeep                    u:object_r:timekeep_exec:s0
+
+# variant blobs
+/system/blobs/(.*)/vendor/bin/ks                        u:object_r:mdm_helper_exec:s0
+/system/blobs/(.*)/vendor/bin/mdm_helper                u:object_r:mdm_helper_exec:s0
+/system/blobs/(.*)/vendor/bin/mdm_helper_proxy          u:object_r:mdm_helper_exec:s0
+/system/blobs/(.*)/vendor/bin/qmuxd                     u:object_r:qmuxd_exec:s0
