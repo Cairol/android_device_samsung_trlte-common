@@ -21,9 +21,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # Get non-open-source specific aspects
 $(call inherit-product-if-exists, vendor/samsung/trlte-common/trlte-common-vendor.mk)
 
-# call common trlte system debug props
-$(call inherit-product, device/samsung/trlte-common/debug.mk)
-
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
@@ -130,6 +127,9 @@ PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service \
     fingerprint.apq8084 \
     ValidityService
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/validityservice/etc/permissions/privapp-permissions-validityservice.xml:system/etc/permissions/privapp-permissions-validityservice.xml \
     
 ifeq ($(filter trlte trltecan trlteduos trltespr trltetmo trlteusc trltevzw trltexx,$(TARGET_DEVICE)),)
 # FlipFlap
