@@ -1,0 +1,9 @@
+allow sudaemon alarm_boot_prop:file r_file_perms;
+allow sudaemon alarm_handled_prop:file r_file_perms;
+allow sudaemon alarm_instance_prop:file r_file_perms;
+allow sudaemon bg_boot_complete_prop:file open;
+allow sudaemon serialno_prop:file { getattr open read };
+allow sudaemon settings_service:service_manager find;
+allow sudaemon activity_service:service_manager find;
+allow sudaemon package_service:service_manager find;
+
