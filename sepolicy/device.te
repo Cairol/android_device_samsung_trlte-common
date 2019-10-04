@@ -2,5 +2,6 @@ type bluetooth_device, dev_type;
 type efs_block_device, dev_type;
 # Fingerprint
 type vfsspi_device, dev_type;
+type validity_device, dev_type;
 # Sensorhub
 type sensorhub_device, dev_type;

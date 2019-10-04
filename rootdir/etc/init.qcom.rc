@@ -1390,7 +1390,8 @@ service sec-sh /system/vendor/bin/sh /system/vendor/etc/init.sec.boot.sh
 
 # SENSOR FRAMEWORK : starts fingerprintService
 service vcsFPService /system/vendor/bin/vcsFPService
-    class late_start
+    class main
     user system
     group system
+    seclabel u:r:vcsFPService:s0
 

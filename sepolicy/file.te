@@ -35,4 +35,4 @@ type wifi_efs_file, file_type;
 type app_efs_file, file_type;
 type imei_efs_file, file_type;
 
-type vfsspi_data_file, file_type, data_file_type;
+type validity_data_file, file_type, data_file_type;
