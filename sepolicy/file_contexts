@@ -140,6 +140,7 @@
 /sys/devices/[a-f0-9]+\.qcom,cpubw/devfreq/[a-f0-9]+\.qcom,cpubw/governor                  u:object_r:sysfs_devfreq:s0
 /sys/devices/[a-f0-9]+\.qcom,cpubw/devfreq/[a-f0-9]+\.qcom,cpubw/max_freq                  u:object_r:sysfs_devfreq:s0
 /sys/devices/[a-f0-9]+\.qcom,cpubw/devfreq/[a-f0-9]+\.qcom,cpubw/min_freq                  u:object_r:sysfs_devfreq:s0
+/sys/module/qcom_cpufreq/parameters/boost_ms                                               u:object_r:sysfs_cpu_boost:s0
 
 # Touch
 /system/vendor/bin/hw/vendor\.lineage\.touch@1\.0-service\.samsung           u:object_r:hal_lineage_touch_default_exec:s0
