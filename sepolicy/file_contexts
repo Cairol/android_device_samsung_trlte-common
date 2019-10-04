@@ -51,9 +51,11 @@
 /sys/devices/msm_sdcc\.[0-9]/mmc_host/mmc[0-9]/power(/.*)?                                   u:object_r:sysfs_mmc_host:s0
 
 # sysfs - bluetooth
-/sys/devices/bt_qca6174.[0-9]+/extldo                   u:object_r:sysfs_bluetooth_writable:s0
-/sys/devices/bt_qca6174.[0-9]+/rfkill/rfkill0/state     u:object_r:sysfs_bluetooth_writable:s0
-/sys/devices/bt_qca6174.[0-9]+/rfkill/rfkill0/type      u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/bt_qca6174.[0-9]+/extldo                                   u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/bt_qca6174.[0-9]+/rfkill/rfkill0/state                     u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/bt_qca6174.[0-9]+/rfkill/rfkill0/type                      u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/platform/bcm.[0-9]+_bluetooth/rfkill/rfkill0/state         u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/platform/bcm.[0-9]+_bluetooth/rfkill/rfkill0/type          u:object_r:sysfs_bluetooth_writable:s0
 
 # sysfs - camera
 /sys/devices/(.*)/video4linux/(.*)/name                 u:object_r:sysfs_camera:s0
