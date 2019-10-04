@@ -34,4 +34,5 @@ allow system_server {
     sysfs_sec_ir
     sysfs_sec_led
     sysfs_sec_touchkey
+    sysfs_hal_pwr
 }:file w_file_perms;
