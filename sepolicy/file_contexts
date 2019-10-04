@@ -120,6 +120,7 @@
 /sys/devices/virtual/sec/sec_misc(/.*)?                 u:object_r:sysfs_sec_misc:s0
 /sys/devices/virtual/sec/sec_powerkey(/.*)?             u:object_r:sysfs_sec_powerkey:s0
 /sys/devices/virtual/sec/sec_touchkey(/.*)?             u:object_r:sysfs_sec_touchkey:s0
+/sys/devices/virtual/sec/sec_epen(/.*)?                 u:object_r:sysfs_sec_epen:s0
 /sys/devices/virtual/sec/switch(/.*)?                   u:object_r:sysfs_sec_switch:s0
 /sys/devices/platform/sec-thermistor(/.*)?              u:object_r:sysfs_sec_thermistor:s0
 /sys/devices/virtual/sec/tsp(/.*)?                      u:object_r:sysfs_sec_tsp:s0

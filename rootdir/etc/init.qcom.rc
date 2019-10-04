@@ -1224,6 +1224,7 @@ on property:sys.boot_completed=1
     restorecon /sys/class/input/input18/enabled
     chmod 0660 /sys/class/input/input18/enabled
     chown system system /sys/class/input/input18/enabled
+    restorecon_recursive /sys/devices/virtual/sec/sec_epen
     chown system radio /sys/class/sec/sec_epen/epen_firm_update
     chown system radio /sys/class/sec/sec_epen/epen_reset
     chown system radio /sys/class/sec/sec_epen/epen_reset_result

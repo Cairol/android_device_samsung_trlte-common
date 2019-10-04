@@ -22,6 +22,7 @@ type sysfs_sec_misc, fs_type, sysfs_type;
 type sysfs_sec_powerkey, fs_type, sysfs_type;
 type sysfs_sec_thermistor, fs_type, sysfs_type;
 type sysfs_sec_touchkey, fs_type, sysfs_type;
+type sysfs_sec_epen, fs_type, sysfs_type;
 type sysfs_sec_switch, fs_type, sysfs_type;
 type sysfs_sec_tsp, fs_type, sysfs_type;
 type sysfs_sec_vib, fs_type, sysfs_type;
