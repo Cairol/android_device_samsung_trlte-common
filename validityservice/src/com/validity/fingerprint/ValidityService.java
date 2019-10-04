@@ -57,6 +57,17 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
     public static final int CB_REMOVED = 3;
     public static final int CB_ACQUIRED = 4;
     public static final int CB_AUTHENTICATED = 5;
+    // CallBack info flags from fingerprint.h
+    public static final int CB_INFO_FINGERPRINT_ACQUIRED_GOOD = 0;
+    public static final int CB_INFO_FINGERPRINT_ACQUIRED_PARTIAL = 1;
+    public static final int CB_INFO_FINGERPRINT_ACQUIRED_INSUFFICIENT = 2;
+    public static final int CB_INFO_FINGERPRINT_ACQUIRED_IMAGER_DIRTY = 3;
+    public static final int CB_INFO_FINGERPRINT_ACQUIRED_TOO_SLOW = 4;
+    public static final int CB_INFO_FINGERPRINT_ACQUIRED_TOO_FAST = 5;
+    public static final int CB_INFO_FINGERPRINT_ACQUIRED_DETECTED = 6;
+    public static final int CB_INFO_FINGERPRINT_ERROR_HW_UNAVAILABLE = 1;
+    public static final int CB_INFO_FINGERPRINT_ERROR_UNABLE_TO_PROCESS = 2;
+    public static final int CB_INFO_FINGERPRINT_ERROR_CANCELED = 5;
 
     private boolean mIsIdentify = false;
     private int mLastEnrollFingerindex = 0;
@@ -186,7 +197,7 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                                 mEnrollBad = false;
                                 mEnrollRepeatCount = 10; //default 8
                                 fp.verifyPassword(userId, pwdhash);
-                                ret = fp.enroll(userId, "", fingerIndex, Fingerprint.VCS_ENROLL_MODE_DEFAULT);
+                                ret = fp.enroll(userId, fingerIndex);
                                 break;
                             case CALL_CANCEL:
                                 ret = fp.cancel();
@@ -242,21 +253,21 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
     public int convertImageQuality(int imageQuality) {
         switch (imageQuality) {
             case VcsEvents.VCS_IMAGE_QUALITY_GOOD:
-                return 0;  //  FINGERPRINT_ACQUIRED_GOOD
+                return CB_INFO_FINGERPRINT_ACQUIRED_GOOD;
             case VcsEvents.VCS_IMAGE_QUALITY_REVERSE_MOTION:
             case VcsEvents.VCS_IMAGE_QUALITY_TOO_SHORT:
             case VcsEvents.VCS_IMAGE_QUALITY_WET_FINGER:
-                return 1;  //  FINGERPRINT_ACQUIRED_PARTIAL
+                return CB_INFO_FINGERPRINT_ACQUIRED_PARTIAL;
             case VcsEvents.VCS_IMAGE_QUALITY_STICTION:
             case VcsEvents.VCS_IMAGE_QUALITY_SOMETHING_ON_THE_SENSOR:
-                return 3;  //  FINGERPRINT_ACQUIRED_IMAGER_DIRTY
+                return CB_INFO_FINGERPRINT_ACQUIRED_IMAGER_DIRTY;
             case VcsEvents.VCS_IMAGE_QUALITY_TOO_SLOW:
-                return 4;  //  FINGERPRINT_ACQUIRED_TOO_SLOW
+                return CB_INFO_FINGERPRINT_ACQUIRED_TOO_SLOW;
             case VcsEvents.VCS_IMAGE_QUALITY_TOO_FAST:
-                return 5;  //  FINGERPRINT_ACQUIRED_TOO_FAST
+                return CB_INFO_FINGERPRINT_ACQUIRED_TOO_FAST;
             default:
                 VLog.d("imageQuality="+imageQuality);
-                return 2;  //  FINGERPRINT_ACQUIRED_INSUFFICIENT
+                return CB_INFO_FINGERPRINT_ACQUIRED_INSUFFICIENT;
         }
     }
 
@@ -275,7 +286,7 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
             String str = null;
             switch (event.eventId) {
                 case VcsEvents.VCS_EVT_EIV_FINGERPRINT_CAPTURE_REDUNDANT:
-                     str = CB_ACQUIRED + ":" + 1;
+                     str = CB_ACQUIRED + ":" + CB_INFO_FINGERPRINT_ACQUIRED_PARTIAL;
                      mEnrollBad = true;
                      break;
                 case VcsEvents.VCS_EVT_ENROLL_CAPTURE_STATUS:
@@ -287,7 +298,6 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                      if (mEnrollRepeatCount < 0) {
                          mEnrollRepeatCount = 1;
                      }
-
                      if (mEnrollRepeatCount != 0) {
                          str = CB_ENROLL + ":" + mLastEnrollFingerindex + ":" + mEnrollRepeatCount;
                      }
@@ -301,8 +311,14 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                      fp.setPassword("User_0", pwdhash);
                      break;
                 case VcsEvents.VCS_EVT_ENROLL_FAILED:
-                     str = CB_ERROR + ":" + 2; //FINGERPRINT_ERROR_UNABLE_TO_PROCESS
                      VLog.e("enroll onEvent: enroll error, result=" + (int)event.eventData);
+                     switch ((int)event.eventData) {
+                         case VcsEvents.VCS_RESULT_OPERATION_CANCELED:
+                              str = CB_ERROR + ":" + CB_INFO_FINGERPRINT_ERROR_CANCELED;
+                              break;
+                         default:
+                              str = CB_ERROR + ":" + CB_INFO_FINGERPRINT_ERROR_UNABLE_TO_PROCESS + ":" + (int)event.eventData;
+                     }
                      break;
                 case VcsEvents.VCS_EVT_VERIFY_COMPLETED:
                 case VcsEvents.VCS_EVT_IDENTIFY_COMPLETED:
@@ -319,8 +335,8 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                      break;
                 case VcsEvents.VCS_EVT_SENSOR_REMOVED:
                      mIsIdentify = false;
-                     str = CB_ERROR + ":" + 1; //FINGERPRINT_ERROR_HW_UNAVAILABLE
-                     VLog.e("identify onEvent: identify error, result=" + (int)event.eventData);
+                     str = CB_ERROR + ":" + CB_INFO_FINGERPRINT_ERROR_HW_UNAVAILABLE;
+                     VLog.e("identify onEvent: sensor removed event, result=" + (int)event.eventData);
                      break;
                 case VcsEvents.VCS_EVT_VERIFY_FAILED:
                 case VcsEvents.VCS_EVT_IDENTIFY_FAILED:
@@ -335,20 +351,20 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                               mIsIdentify = true;
                               fp.identify("User_" + mActiveGid);
                               if (str == null) {
-                                  str = CB_ACQUIRED + ":" + 1; //  FINGERPRINT_ACQUIRED_PARTIAL
+                                  str = CB_ACQUIRED + ":" + CB_INFO_FINGERPRINT_ACQUIRED_PARTIAL;
                               }
                               break;
                          case VcsEvents.VCS_RESULT_OPERATION_CANCELED:
-                                mIdresult = null;
-                                mIsIdentify = true;
-                                if(mIsScreenOn){
-                                    fp.setSecurityLevel(VcsEvents.VCS_SECURITY_LEVEL_HIGH);
-                                    fp.identify("User_" + mActiveGid);
-                                    str = CB_ACQUIRED + ":" + 0; //  FINGERPRINT_ACQUIRED_GOOD
-                                }
+                              mIdresult = null;
+                              mIsIdentify = true;
+                              if (mIsScreenOn) {
+                                  fp.setSecurityLevel(VcsEvents.VCS_SECURITY_LEVEL_HIGH);
+                                  fp.identify("User_" + mActiveGid);
+                              }
+                              str = CB_ERROR + ":" + CB_INFO_FINGERPRINT_ERROR_CANCELED;
                               break;
                          default:
-                              str = CB_ERROR + ":" + 2; //FINGERPRINT_ERROR_UNABLE_TO_PROCESS
+                             str = CB_ERROR + ":" + CB_INFO_FINGERPRINT_ERROR_UNABLE_TO_PROCESS + ":" + (int)event.eventData;
                      }
                      break;
                 default:

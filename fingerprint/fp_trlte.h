@@ -33,6 +33,13 @@
 //userId
 #define CALL_CLEANUP 7
 
+// Listener messages (must match to ValidityService.java)
+#define CB_ERROR 1
+#define CB_ENROLL 2
+#define CB_REMOVED 3
+#define CB_ACQUIRED 4
+#define CB_AUTHENTICATED 5
+
 typedef enum worker_state_t {
     STATE_IDLE = 0,
     STATE_ENROLL,
@@ -76,7 +83,7 @@ static __inline__ int fd_read(int fd, void* buff, int len){
 	return len2;
 }
 
-static void checkinit(vcs_fingerprint_device_t* vdev);
+static void waitForInit(vcs_fingerprint_device_t* vdev);
 static int sendcommand(vcs_fingerprint_device_t* vdev, uint8_t* command, int num);
 static int getfingermask(vcs_fingerprint_device_t* vdev);
 static int initService(vcs_fingerprint_device_t* vdev);
@@ -85,7 +92,8 @@ static void send_error_notice(vcs_fingerprint_device_t* vdev, fingerprint_error_
 static void send_acquired_notice(vcs_fingerprint_device_t* vdev, fingerprint_acquired_info_t acquired_info);
 static void send_enroll_notice(vcs_fingerprint_device_t* vdev, int fid, int remaining);
 static void send_authenticated_notice(vcs_fingerprint_device_t* vdev, int fid);
-static void send_remove_notice(vcs_fingerprint_device_t* vdev, int fid);
+static void send_remove_notice(vcs_fingerprint_device_t* vdev, int fid, int remaining);
+static void send_enumerating_notice(vcs_fingerprint_device_t* vdev, int fid, int remaining);
 
 static uint64_t get_64bit_rand();
 static uint64_t fingerprint_get_auth_id(struct fingerprint_device* device);
@@ -100,14 +108,13 @@ static int fingerprint_enroll(struct fingerprint_device *device,
 static uint64_t fingerprint_pre_enroll(struct fingerprint_device *device);
 static int fingerprint_post_enroll(struct fingerprint_device* device);
 static int fingerprint_cancel(struct fingerprint_device *device);
-static int fingerprint_enumerate(struct fingerprint_device *device,
-        fingerprint_finger_id_t *results, uint32_t *max_size);
+static int fingerprint_enumerate(struct fingerprint_device *device);
 static int fingerprint_remove(struct fingerprint_device *device,
         uint32_t __unused gid, uint32_t fid);
 static int set_notify_callback(struct fingerprint_device *device,
                                fingerprint_notify_t notify);
 
-static worker_state_t getListenerState(vcs_fingerprint_device_t* dev);
+static worker_state_t getListenerState(vcs_fingerprint_device_t* vdev);
 static void* listenerSocket(void* data);
 
 static int fingerprint_close(hw_device_t* device);

@@ -80,7 +80,7 @@ public class Fingerprint extends FingerprintCore {
     }
 
     public int enableSensorDevice(boolean enable) {
-        if (mOperation != 150)
+        if (mOperation != IDLE)
             return VCS_RESULT_ALREADY_INPROGRESS;
         return jniEnableSensorDevice((enable? 1: 0));
     }
@@ -91,41 +91,41 @@ public class Fingerprint extends FingerprintCore {
 
     public int enroll(EnrollUser enrollInfo) {
         int ret = VCS_RESULT_FAILED;
-        if (mOperation != 150)
+        if (mOperation != IDLE)
             return ret;
         ret = jniEnrollUser(enrollInfo);
         if (ret == VCS_RESULT_OK)
-            mOperation = 151;
+            mOperation = ENROLL;
         return ret;
     }
 
     public int enroll(String userId, int fingerIndex) {
         int ret = VCS_RESULT_FAILED;
-        if (mOperation != 150)
+        if (mOperation != IDLE)
             return ret;
         if (null == userId)
             userId = "";
         ret = jniEnrollUser(userId, fingerIndex, VCS_ENROLL_MODE_DEFAULT);
         if (ret == VCS_RESULT_OK)
-            mOperation = 151;
+            mOperation = ENROLL;
         return ret;
     }
 
     public int enroll(String userId, int fingerIndex, int mode) {
         int ret = VCS_RESULT_FAILED;
-        if (mOperation != 150)
+        if (mOperation != IDLE)
             return ret;
         if (null == userId)
             userId = "";
         ret = jniEnrollUser(userId, fingerIndex, mode);
         if (ret == VCS_RESULT_OK)
-            mOperation = 151;
+            mOperation = ENROLL;
         return ret;
     }
 
     public int enroll(String userId, String appData, int fingerIndex) {
         int ret = VCS_RESULT_FAILED;
-        if (mOperation != 150)
+        if (mOperation != IDLE)
             return ret;
         if (null == userId)
             userId = "";
@@ -133,13 +133,13 @@ public class Fingerprint extends FingerprintCore {
             appData = "";
         ret = jniEnrollUser(userId, appData, fingerIndex);
         if (ret == VCS_RESULT_OK)
-            mOperation = 151;
+            mOperation = ENROLL;
         return ret;
     }
 
     public int enroll(String userId, String appData, int fingerIndex, int mode) {
         int ret = VCS_RESULT_FAILED;
-        if (mOperation != 150)
+        if (mOperation != IDLE)
             return ret;
         if (null == userId)
             userId = "";
@@ -147,12 +147,12 @@ public class Fingerprint extends FingerprintCore {
             appData = "";
         ret = jniReEnrollUser(userId, appData, fingerIndex, mode);
         if (ret == VCS_RESULT_OK)
-            mOperation = 151;
+            mOperation = ENROLL;
         return ret;
     }
 
     public int getSensorStatus() {
-        if (mOperation != 150)
+        if (mOperation != IDLE)
             return VCS_RESULT_ALREADY_INPROGRESS;
         return jniGetSensorStatus();
     }
@@ -178,7 +178,7 @@ public class Fingerprint extends FingerprintCore {
     }
 
     public int removeEnrolledFinger(String userId, int fingerIndex) {
-        if (mOperation != 150)
+        if (mOperation != IDLE)
             return VCS_RESULT_ALREADY_INPROGRESS;
         if (null == userId)
             userId = "";
@@ -186,7 +186,7 @@ public class Fingerprint extends FingerprintCore {
     }
 
     public int removeEnrolledUser(String userId) {
-        if (mOperation != 150)
+        if (mOperation != IDLE)
             return VCS_RESULT_ALREADY_INPROGRESS;
         if (null == userId)
             userId = "";
