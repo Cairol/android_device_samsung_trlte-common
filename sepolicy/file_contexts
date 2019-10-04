@@ -151,3 +151,5 @@
 # Wifiloader
 /system/bin/wifiloader                                  u:object_r:wifiloader_exec:s0
 
+# timekeep
+/(vendor|system/vendor)/bin/timekeep                    u:object_r:timekeep_exec:s0
