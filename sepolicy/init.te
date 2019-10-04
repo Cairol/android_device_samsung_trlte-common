@@ -19,6 +19,7 @@ allow init {
     sysfs_batteryinfo
     sysfs_bluetooth_writable
     sysfs_camera
+    sysfs_devfreq
     sysfs_graphics
     sysfs_hal_pwr
     sysfs_iio
