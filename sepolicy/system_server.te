@@ -26,6 +26,10 @@ allow system_server {
 }:dir search;
 
 allow system_server {
+    vfat
+}:dir r_dir_perms;
+
+allow system_server {
     efs_file
     qti_debugfs
 }:file r_file_perms;
@@ -36,3 +40,8 @@ allow system_server {
     sysfs_sec_touchkey
     sysfs_hal_pwr
 }:file w_file_perms;
+
+allow system_server {
+    crash_dump
+    zygote
+}:process getpgid;
