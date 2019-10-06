@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policy>
+
+<!--
+
+* A signature is a hex encoded X.509 certificate or a tag defined in
+  keys.conf and is required for each signer tag. The signature can
+  either appear as a set of attached cert child tags or as an attribute.
+* A signer tag must contain a seinfo tag XOR multiple package stanzas.
+* Each signer/package tag is allowed to contain one seinfo tag. This tag
+  represents additional info that each app can use in setting a SELinux security
+  context on the eventual process as well as the apps data directory.
+* seinfo assignments are made according to the following rules:
+  - Stanzas with package name refinements will be checked first.
+  - Stanzas w/o package name refinements will be checked second.
+  - The "default" seinfo label is automatically applied.
+
+* valid stanzas can take one of the following forms:
+
+ // single cert protecting seinfo
+ <signer signature="@PLATFORM" >
+   <seinfo value="platform" />
+ </signer>
+
+ // multiple certs protecting seinfo (all contained certs must match)
+ <signer>
+   <cert signature="@PLATFORM1"/>
+   <cert signature="@PLATFORM2"/>
+   <seinfo value="platform" />
+ </signer>
+
+ // single cert protecting explicitly named app
+ <signer signature="@PLATFORM" >
+   <package name="com.android.foo">
+ <seinfo value="bar" />
+   </package>
+ </signer>
+
+ // multiple certs protecting explicitly named app (all certs must match)
+ <signer>
+   <cert signature="@PLATFORM1"/>
+   <cert signature="@PLATFORM2"/>
+   <package name="com.android.foo">
+ <seinfo value="bar" />
+   </package>
+ </signer>
+-->
+
+ <!-- Tasker app -->
+ <signer signature="3082031a308202d8a00302010202044a82da9a300b06072a8648ce3804030500306f3110300e06035504061307556e6b6e6f776e3110300e06035504081307556e6b6e6f776e3110300e06035504071307556e6b6e6f776e3110300e060355040a1307556e6b6e6f776e3110300e060355040b1307556e6b6e6f776e311330110603550403130a4c65652057696c6d6f743020170d3039303831323135303730365a180f32303530303930363135303730365a306f3110300e06035504061307556e6b6e6f776e3110300e06035504081307556e6b6e6f776e3110300e06035504071307556e6b6e6f776e3110300e060355040a1307556e6b6e6f776e3110300e060355040b1307556e6b6e6f776e311330110603550403130a4c65652057696c6d6f74308201b83082012c06072a8648ce3804013082011f02818100fd7f53811d75122952df4a9c2eece4e7f611b7523cef4400c31e3f80b6512669455d402251fb593d8d58fabfc5f5ba30f6cb9b556cd7813b801d346ff26660b76b9950a5a49f9fe8047b1022c24fbba9d7feb7c61bf83b57e7c6a8a6150f04fb83f6d3c51ec3023554135a169132f675f3ae2b61d72aeff22203199dd14801c70215009760508f15230bccb292b982a2eb840bf0581cf502818100f7e1a085d69b3ddecbbcab5c36b857b97994afbbfa3aea82f9574c0b3d0782675159578ebad4594fe67107108180b449167123e84c281613b7cf09328cc8a6e13c167a8b547c8d28e0a3ae1e2bb3a675916ea37f0bfa213562f1fb627a01243bcca4f1bea8519089a883dfe15ae59f06928b665e807b552564014c3bfecf492a0381850002818100a182e789d6462a6ba16e3d52867d4be8b3211a888eeea3970897bbb80c7d2aed571ba719c61757799f9b02c62415ee045a4eb3dd63ac1e10860e96ee5c2d09928e9eca13bf92f04821e865297874826c7bb4803cfcd2fb6a229187ca7eae0904d525be04d82aa7c8245d7d490a51d434cbe9af83ccb4a49f67764cda8462a9d5300b06072a8648ce3804030500032f00302c021431e649e9d5c6949627e024723ca352e0d92defab021406440faa7ea0e5094d924d5b347f082dd494780a" >
+   <package name="net.dinglisch.android.taskerm">
+     <seinfo value="tasker" />
+   </package>
+ </signer>
+ 
+</policy>

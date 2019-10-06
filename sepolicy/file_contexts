@@ -136,6 +136,8 @@
 # sysfs - usb
 /sys/devices/[a-f0-9]+.ssusb/[a-f0-9]+.dwc3/gadget/lun[0-9]+(/.*)?      u:object_r:sysfs_android_usb:s0
 /sys/devices/virtual/host_notify/usb_otg(/.*)?                          u:object_r:sysfs_usb_otg:s0
+/sys/devices/msm_hsic_host/usb[0-9]+(/.*)?                              u:object_r:sysfs_msm_hsic_usb:s0
+/sys/bus/usb/devices(/.*)?                                              u:object_r:sysfs_usb_devices:s0
 
 # sysfs - wlan
 /sys/module/dhd/parameters/firmware_path                u:object_r:sysfs_wlan_fwpath:s0

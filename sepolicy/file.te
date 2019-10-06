@@ -13,6 +13,7 @@ type sysfs_mdnie, fs_type, sysfs_type;
 type sysfs_modules, fs_type, sysfs_type;
 type sysfs_hal_pwr, fs_type, sysfs_type;
 type sysfs_msm, fs_type, sysfs_type;
+type sysfs_msm_hsic_usb, sysfs_type, fs_type;
 type sysfs_sec_bsp, fs_type, sysfs_type;
 type sysfs_sec_led, fs_type, sysfs_type;
 type sysfs_sec_sdcard, fs_type, sysfs_type;
@@ -28,6 +29,7 @@ type sysfs_sec_switch, fs_type, sysfs_type;
 type sysfs_sec_tsp, fs_type, sysfs_type;
 type sysfs_sec_vib, fs_type, sysfs_type;
 type sysfs_usb_otg, fs_type, sysfs_type;
+type sysfs_usb_devices, fs_type, sysfs_type;
 
 type bt_fw_file, file_type;
 type nfc_fw_file, file_type;

@@ -1212,6 +1212,11 @@ on property:sys.boot_completed=1
     write /sys/block/mmcblk0/queue/scheduler deadline
 
     restorecon_recursive /sys/devices/virtual/input
+    # set sysfs_usb_devices context
+    restorecon_recursive /sys/bus/usb/devices
+    # set sysfs_msm_hsic_usb context
+    restorecon_recursive /sys/devices/msm_hsic_host/usb1
+    restorecon_recursive /sys/devices/msm_hsic_host/usb2
 
     # Enable ZRAM on boot_completed
     swapon_all fstab.qcom
