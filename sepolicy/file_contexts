@@ -159,7 +159,7 @@
 /system/bin/wifiloader                                  u:object_r:wifiloader_exec:s0
 
 # timekeep
-/(vendor|system/vendor)/bin/timekeep                    u:object_r:timekeep_exec:s0
+/(vendor|system/vendor)/bin/timekeep                    u:object_r:time_daemon_exec:s0
 
 # sensorhubservice
 /(vendor|system/vendor)/bin/sensorhubservice            u:object_r:sensorhubservice_exec:s0
