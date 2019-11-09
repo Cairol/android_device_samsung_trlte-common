@@ -1,0 +1,1 @@
+allow netd untrusted_app:unix_stream_socket { read write };
