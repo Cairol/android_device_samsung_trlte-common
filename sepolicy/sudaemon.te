@@ -7,6 +7,7 @@ allow sudaemon serialno_prop:file r_file_perms;
 allow sudaemon bluetooth_prop:file r_file_perms;
 allow sudaemon boot_animation_prop:file r_file_perms;
 allow sudaemon boot_mode_prop:file r_file_perms;
+allow sudaemon boottime_prop:file r_file_perms;
 allow sudaemon bootloader_boot_reason_prop:file r_file_perms;
 allow sudaemon settings_service:service_manager find;
 allow sudaemon activity_service:service_manager find;
