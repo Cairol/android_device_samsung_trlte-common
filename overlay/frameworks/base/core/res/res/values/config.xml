@@ -334,6 +334,8 @@
     <!-- Enable doze powersaving -->
     <bool name="config_enableWifiDisplay">true</bool>
 
+    <bool name="config_wifiDisplaySupportsProtectedBuffers">true</bool>
+
     <!-- Panel auto-brightness configuration value -->
     <!--integer name="config_panelAutoBrightnessValue">1</integer-->
 
