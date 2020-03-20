@@ -68,6 +68,7 @@ sys.qca1530=detect
 
 # logd
 ro.logd.auditd.dmesg=false
+ro.logd.auditd.events=false
 
 # Media
 debug.stagefright.ccodec=0
