@@ -3,8 +3,14 @@
 /dev/block/platform/msm_sdcc\.1/by-name/fota            u:object_r:misc_block_device:s0
 
 # data files
-/data/.cid.info                                         u:object_r:wifi_data_file:s0
-/data/.wifiver.info                                     u:object_r:wifi_data_file:s0
+/data/.ant.info                                         u:object_r:wifi_vendor_data_file:s0
+/data/.cid.info                                         u:object_r:wifi_vendor_data_file:s0
+/data/.psm.info                                         u:object_r:wifi_vendor_data_file:s0
+/data/.wifiver.info                                     u:object_r:wifi_vendor_data_file:s0
+/data/.bustxglom.info                                   u:object_r:wifi_vendor_data_file:s0
+/data/.roamoff.info                                     u:object_r:wifi_vendor_data_file:s0
+/data/.frameburst.info                                  u:object_r:wifi_vendor_data_file:s0
+/data/.txbf.info                                        u:object_r:wifi_vendor_data_file:s0
 /data/validity(/.*)?                                    u:object_r:validity_data_file:s0
 
 # device nodes

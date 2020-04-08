@@ -33,7 +33,6 @@ on early-init
 
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
-    restorecon --recursive /sys/block/mmcblk0/queue
 
 on init
     # Set permissions for persist partition
@@ -263,11 +262,11 @@ on post-fs-data
     chown radio system /sys/class/secgpio_check/secgpio_check_all/secgpio_ctrl
 
     mkdir /data/tombstones 0771 system system
-    mkdir /tombstones/modem 0771 system system
-    mkdir /tombstones/lpass 0771 system system
-    mkdir /tombstones/wcnss 0771 system system
-    mkdir /tombstones/dsps 0771 system system
-    mkdir /tombstones/mdm 0771 system system
+    mkdir /data/tombstones/modem 0771 system system
+    mkdir /data/tombstones/lpass 0771 system system
+    mkdir /data/tombstones/wcnss 0771 system system
+    mkdir /data/tombstones/dsps 0771 system system
+    mkdir /data/tombstones/mdm 0771 system system
 
     # Create directory for ril data
     mkdir /data/misc/radio 0775 radio radio
@@ -346,11 +345,6 @@ on post-fs-data
     chown system radio /sys/class/sec/sec_ir/ir_send_result
     chown system system /dev/ice4_dev
     chmod 0660 /dev/ice4_dev
-
-    # Remove symlinks to avoid issues with migrate after nandroid restores
-    # Will be recreated at end of boot
-    rm /data/data/com.android.providers.telephony/databases
-    rm /data/data/com.android.providers.telephony/shared_prefs
 
     chown system system /sys/class/flash/flash/flash_power
     chmod 660 /sys/class/flash/flash/flash_power
@@ -1197,12 +1191,8 @@ on property:crypto.driver.load=0
     exec /system/bin/rmmod qce.ko
 
 on property:sys.boot_completed=1
-    restorecon_recursive /sys/devices/virtual/input
     # set sysfs_usb_devices context
     restorecon_recursive /sys/bus/usb/devices
-    # set sysfs_msm_hsic_usb context
-    restorecon_recursive /sys/devices/msm_hsic_host/usb1
-    restorecon_recursive /sys/devices/msm_hsic_host/usb2
 
     # Enable ZRAM on boot_completed
     swapon_all /system/vendor/etc/fstab.qcom
@@ -1212,10 +1202,8 @@ on property:sys.boot_completed=1
     chmod 0660 /dev/input/event19
     chown system input /dev/input/event18
     chown system input /dev/input/event19
-    restorecon /sys/class/input/input18/enabled
     chmod 0660 /sys/class/input/input18/enabled
     chown system system /sys/class/input/input18/enabled
-    restorecon_recursive /sys/devices/virtual/sec/sec_epen
     chown system radio /sys/class/sec/sec_epen/epen_firm_update
     chown system radio /sys/class/sec/sec_epen/epen_reset
     chown system radio /sys/class/sec/sec_epen/epen_reset_result
@@ -1235,10 +1223,6 @@ on property:sys.boot_completed=1
     #Audience ES705 UART
     # Late chown to make sure the kernel can access the device
     chown media audio /dev/ttyHS3
-
-    # Symlink directories to access telephony.db and preferred-apn.xml required by libsec-ril
-    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
-    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs
 
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
