@@ -61,9 +61,6 @@ on fs
 
     wait /dev/block/platform/msm_sdcc.1/by-name/efs
     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/efs /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit
-    chown system radio /efs
-    chmod 0771 /efs
-    restorecon_recursive /efs
 
     mkdir /persdata 0755 system system
     mkdir /persdata/absolute 0750 system system
