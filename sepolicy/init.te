@@ -4,14 +4,12 @@
 # to read any system_data_file:lnk_file.
 selinux_check_context(init)
 
-allow init debugfs:file rw_file_perms;
-allow init proc_boot_reason:file read;
-allow init proc_printk:file w_file_perms;
 allow init {
     sysfs_iio
     sysfs_sec_tsp
     sysfs_sensors
     sysfs_kgsl
+    sysfs_leds
 }:lnk_file read;
 
 allow init {
@@ -51,6 +49,12 @@ allow init {
 }:file setattr;
 
 allow init {
+    sysfs_graphics
+    sysfs_livedisplay_tuneable
+    proc_boot_reason
+}:file r_file_perms;
+
+allow init {
     sysfs_bluetooth_writable
     sysfs_cpu_boost
     sysfs_devices_system_cpu
@@ -67,5 +71,15 @@ allow init {
     sysfs_ssr_toggle
     sysfs_thermal
     sysfs_kgsl
+    proc_printk
 }:file w_file_perms;
+
+allow init {
+    debugfs
+    sysfs_mdnie
+}:file rw_file_perms;
+
+allow init {
+    efs_file
+}:dir mounton;
 
