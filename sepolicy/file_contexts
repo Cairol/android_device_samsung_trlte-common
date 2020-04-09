@@ -157,6 +157,9 @@
 /sys/devices/[a-f0-9]+\.qcom,cpubw/devfreq/[a-f0-9]+\.qcom,cpubw/min_freq                  u:object_r:sysfs_devfreq:s0
 /sys/module/qcom_cpufreq/parameters/boost_ms                                               u:object_r:sysfs_cpu_boost:s0
 
+# sysfs - RTC
+/sys/devices/qpnp-rtc-10/rtc(/.*)?                      u:object_r:sysfs_rtc:s0
+
 # Macloader
 /(vendor|system/vendor)/bin/macloader                   u:object_r:macloader_exec:s0
 

@@ -1,0 +1,3 @@
+allow time_daemon self:capability dac_override;
+allow time_daemon sysfs_rtc:file { open read };
+allow time_daemon sysfs_rtc:dir search;
