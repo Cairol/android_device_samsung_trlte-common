@@ -5,3 +5,5 @@ type vfsspi_device, dev_type;
 type validity_device, dev_type;
 # Sensorhub
 type sensorhub_device, dev_type;
+# Alarm device for use by rild
+type alarm_device, dev_type, mlstrustedobject;
