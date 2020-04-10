@@ -1373,7 +1373,7 @@ service macloader /system/vendor/bin/macloader
     seclabel u:r:macloader:s0
 
 # Run deferred initcalls of builtin kernel modules (bcmdhd)
-service wifiloader /system/bin/wifiloader
+service wifiloader /system/vendor/bin/wifiloader
      class main
      oneshot
      seclabel u:r:wifiloader:s0
