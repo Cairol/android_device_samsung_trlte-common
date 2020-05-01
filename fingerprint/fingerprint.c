@@ -390,7 +390,7 @@ static int fingerprint_cancel(struct fingerprint_device *device) {
 
     pthread_mutex_unlock(&vdev->lock);
 
-    //send_error_notice(vdev, FINGERPRINT_ERROR_CANCELED);
+    send_error_notice(vdev, FINGERPRINT_ERROR_CANCELED);
 
     return ret;
 }
