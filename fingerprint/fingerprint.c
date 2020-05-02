@@ -390,7 +390,11 @@ static int fingerprint_cancel(struct fingerprint_device *device) {
 
     pthread_mutex_unlock(&vdev->lock);
 
+#ifndef CALL_NOTIFY_ON_CANCEL
+    // if TARGET_SEC_FP_CALL_NOTIFY_ON_CANCEL=true is set in Makefiles,
+    //  the android.hardware.biometrics.fingerprint service will send the cancel error notice
     send_error_notice(vdev, FINGERPRINT_ERROR_CANCELED);
+#endif
 
     return ret;
 }

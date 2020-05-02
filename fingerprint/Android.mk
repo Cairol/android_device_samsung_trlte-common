@@ -19,6 +19,10 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+ifeq ($(TARGET_SEC_FP_CALL_NOTIFY_ON_CANCEL),true)
+    LOCAL_CFLAGS += -DCALL_NOTIFY_ON_CANCEL
+endif
+
 LOCAL_MODULE := fingerprint.apq8084
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SRC_FILES := fingerprint.c
