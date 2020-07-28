@@ -1,6 +1,5 @@
 # define Tasker app domain
-type np_tasker_app, domain;
-typeattribute np_tasker_app coredomain;
+type np_tasker_app, domain, coredomain;
 
 # inherit unstrusted_app permissions
 app_domain(np_tasker_app)
@@ -14,3 +13,8 @@ allow np_tasker_app sysfs_usb_devices:lnk_file read;
 allow np_tasker_app sysfs_msm_hsic_usb:dir r_dir_perms;
 allow np_tasker_app sysfs_msm_hsic_usb:file r_file_perms;
 allow np_tasker_app sysfs_msm_hsic_usb:lnk_file read;
+# |-- charging enable/disable
+allow np_tasker_app sysfs_battery_charge:file rw_file_perms;
+allow np_tasker_app sysfs_batteryinfo:dir r_dir_perms;
+allow np_tasker_app sysfs:dir r_dir_perms;
+allow np_tasker_app rootfs:dir r_dir_perms;

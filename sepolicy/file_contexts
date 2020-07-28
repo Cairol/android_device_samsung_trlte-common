@@ -66,6 +66,9 @@
 /sys/devices/i2c\.[0-9]+/i2c-[0-9]+/[0-9]+-[a-z0-9]+/max[a-z0-9]+-fuelgauge/power_supply(/.*)?  u:object_r:sysfs_batteryinfo:s0
 /sys/devices/i2c\.[0-9]+/i2c-[0-9]+/[0-9]+-[a-z0-9]+/power_supply(/.*)?                         u:object_r:sysfs_batteryinfo:s0
 
+# sysfs - battery charging enable/disable
+/sys/devices/battery.2/power_supply/battery/batt_slate_mode          u:object_r:sysfs_battery_charge:s0
+
 # sysfs - block/storage
 /sys/devices/msm_sdcc\.[0-9]/mmc_host/mmc[0-9]/mmc[0-9]:[0-9]+/block/mmcblk[0-9]/bkops_en    u:object_r:sysfs_io_sched_tuneable:s0
 /sys/devices/msm_sdcc\.[0-9]/mmc_host/mmc[0-9]/power(/.*)?                                   u:object_r:sysfs_mmc_host:s0

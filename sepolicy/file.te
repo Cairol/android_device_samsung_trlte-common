@@ -41,3 +41,4 @@ type app_efs_file, file_type;
 type imei_efs_file, file_type;
 
 type validity_data_file, file_type, data_file_type;
+type sysfs_battery_charge, fs_type, sysfs_type, mlstrustedobject;

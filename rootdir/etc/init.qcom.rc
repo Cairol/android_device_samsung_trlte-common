@@ -56,6 +56,9 @@ on init
 
     write /proc/sys/vm/page-cluster 0
 
+    # permissions for battery charging enable/disable
+    chmod 666 /sys/devices/battery.2/power_supply/battery/batt_slate_mode
+
 on fs
     mount_all /vendor/etc/fstab.qcom
 
