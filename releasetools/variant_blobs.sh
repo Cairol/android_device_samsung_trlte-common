@@ -43,19 +43,20 @@ fi
 
 echo "Device with bootloader $BOOTLOADER requires $VARIANT blobs"
 
+SYSTEM=/system/system
 
-if [ -d /system/blobs ]; then
-    BLOBBASE=/system/blobs/$VARIANT
+if [ -d $SYSTEM/blobs ]; then
+    BLOBBASE=$SYSTEM/blobs/$VARIANT
     if [ -d $BLOBBASE ]; then
         cd $BLOBBASE
 
         for FILE in `find . -type f` ; do
-            mkdir -p `dirname /system/$FILE`
-            better_copy $FILE /system/$FILE
+            mkdir -p `dirname $SYSTEM/$FILE`
+            better_copy $FILE $SYSTEM/$FILE
         done
 
         for FILE in vendor/bin/* ; do
-            chmod 755 /system/$FILE
+            chmod 755 $SYSTEM/$FILE
         done
 
     else
@@ -64,7 +65,7 @@ if [ -d /system/blobs ]; then
     fi
 
     # clean up blob directory
-    cd /system
+    cd $SYSTEM
     rm -rf blobs/*
     rmdir blobs
 

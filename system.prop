@@ -48,6 +48,8 @@ debug.gralloc.enable_fb_ubwc=0
 debug.hwui.use_buffer_age=false
 persist.hwc.enable_vds=false
 sdm.perf_hint_window=50
+debug.sf.disable_gl_backpressure=1
+debug.sf.latch_unsignaled=1
 
 # Fingerprint
 fingerprint_enabled=1
@@ -67,8 +69,19 @@ sys.qca1530=detect
 # logd
 ro.logd.auditd.dmesg=false
 
+# Media
+debug.stagefright.ccodec=0
+debug.stagefright.omx_default_rank.sw-audio=1
+debug.stagefright.omx_default_rank=0
+
 # Memory optimizations
+ro.vendor.qti.am.reschedule_service=true
 ro.vendor.qti.sys.fw.bservice_enable=true
+
+# Miracast (Wireless Display)
+wlan.wfd.hdcp=disable 
+persist.debug.wfd.enable=1 
+persist.sys.wfd.virtual=0
 
 # NFC
 ro.nfc.sec_hal=true

@@ -3,6 +3,8 @@ type proc_printk, fs_type, proc_type;
 type proc_boot_reason, fs_type, proc_type;
 type proc_pci_devices, fs_type, proc_type;
 
+type sec_efs_file, fs_type, sysfs_type;
+
 type sysfs_camera, fs_type, sysfs_type;
 type sysfs_fingerprint, fs_type, sysfs_type;
 type sysfs_iio, fs_type, sysfs_type;

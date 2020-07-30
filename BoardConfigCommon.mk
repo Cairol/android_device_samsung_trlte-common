@@ -20,7 +20,8 @@
 COMMON_PATH := device/samsung/trlte-common
 
 # Architecture
-TARGET_CPU_VARIANT := krait
+TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT_RUNTIME := krait
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -37,6 +38,9 @@ USE_XML_AUDIO_POLICY_CONF := 1
 
 # Binder API
 TARGET_USES_64_BIT_BINDER := true
+
+# Bionic
+MALLOC_SVELTE := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -69,14 +73,24 @@ endif
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS := 0x02000000U
+TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS := 0x2000U | 0x02000000U
 
 # Exclude serif fonts for saving system.img size.
 EXCLUDE_SERIF_FONTS := true
 
 # Extended Filesystem Support
 TARGET_EXFAT_DRIVER := sdfat
+
+# Filesystem
+BOARD_ROOT_EXTRA_SYMLINKS := /data/tombstones:/tombstones
+BOARD_ROOT_EXTRA_FOLDERS := \
+    firmware-modem \
+    firmware \
+    efs \
+    cache
+
+# Fingerprint
+BUILD_FINGERPRINT := samsung/trltexx/trlte:6.0.1/MMB29M/N910FXXU1DRD1:user/release-keys
 
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
@@ -86,20 +100,12 @@ TARGET_HW_DISK_ENCRYPTION := false
 TARGET_HW_DISK_ENCRYPTION_PERF := false
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
-# First Model API LEVEL
-PRODUCT_SHIPPING_API_LEVEL := 23
-
 # HIDL
-DEVICE_FRAMEWORK_MANIFEST_FILE += system/libhidl/vintfdata/manifest_healthd_exclude.xml
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(COMMON_PATH)/include
-
-# Init
-TARGET_INIT_VENDOR_LIB := libinit_apq8084
-TARGET_RECOVERY_DEVICE_MODULES := libinit_apq8084
 
 # Kernel
 BOARD_KERNEL_BASE := 0x00000000
@@ -117,9 +123,6 @@ BOARD_RAMDISK_OFFSET     := 0x02600000
 BOARD_KERNEL_TAGS_OFFSET := 0x02400000
 BOARD_SECOND_OFFSET      := 0x00f00000
 
-# Keymaster
-TARGET_KEYMASTER_WAIT_FOR_QSEE := true
-
 # Legacy BLOB Support
 TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
@@ -127,8 +130,9 @@ TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
     /system/vendor/bin/mm-qcamera-daemon=22 \
     /system/vendor/bin/hw/rild=27
 
-# Lineagehw
-JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(COMMON_PATH)/lineagehw|**/*.java
+TARGET_LD_SHIM_LIBS := \
+    /system/vendor/lib/libsec-ril.so|/system/vendor/lib/libprotobuf-cpp-full.so \
+    /system/vendor/lib/libloc_eng.so|/system/lib/libshim_loc.so
 
 # Media
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
@@ -143,8 +147,6 @@ TARGET_NEEDS_NETD_DIRECT_CONNECT_RULE := true
 TARGET_BOARD_PLATFORM := apq8084
 
 # Power HAL
-TARGET_HAS_LEGACY_POWER_STATS := true
-TARGET_HAS_NO_WLAN_STATS := true
 TARGET_USES_INTERACTION_BOOST := true
 TARGET_POWERHAL_SET_INTERACTIVE_EXT := $(COMMON_PATH)/power/power_ext.c
 
@@ -158,12 +160,10 @@ BOARD_GLOBAL_CPPFLAGS += -DQCOM_BSP
 
 # Radio
 BOARD_PROVIDES_LIBRIL := true
-TARGET_RIL_VARIANT := caf
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/rootdir/etc/fstab.qcom
 TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
 LZMA_RAMDISK_TARGETS := recovery
 
 # Sensors
@@ -172,7 +172,7 @@ TARGET_NO_SENSOR_PERMISSION_CHECK := true
 # SELinux
 include device/qcom/sepolicy-legacy/sepolicy.mk
 
-BOARD_SEPOLICY_DIRS += \
+BOARD_VENDOR_SEPOLICY_DIRS += \
     $(COMMON_PATH)/sepolicy
 
 # Wifi

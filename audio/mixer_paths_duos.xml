@@ -971,7 +971,7 @@
 	<!-- Recording Scenario  -->
 	<path name="rec-main-mic">
 		<path name="main-mic" />
-		<ctl name="DEC2 Volume" value="90" />
+		<ctl name="DEC2 Volume" value="106" />
 	</path>
 
 	<path name="rec-main-mic-jam">
@@ -981,7 +981,7 @@
 
 	<path name="rec-sub-mic">
 		<path name="sub-mic" />
-		<ctl name="DEC4 Volume" value="90" />
+		<ctl name="DEC4 Volume" value="106" />
 	</path>
 
 	<path name="rec-3rd-mic">
@@ -992,7 +992,7 @@
 	<path name="rec-headset-mic">
 		<path name="ear-mic" />
 		<ctl name="ADC2 Volume" value="14" />
-		<ctl name="DEC5 Volume" value="72" />
+		<ctl name="DEC5 Volume" value="106" />
 	</path>
 
     <path name="rec-headset-mic-jam">
@@ -1003,8 +1003,8 @@
 
 	<path name="rec-stereo-mic">
 		<path name="sub-main-mic" />
-		<ctl name="DEC2 Volume" value="89" />
-		<ctl name="DEC4 Volume" value="90" />
+		<ctl name="DEC2 Volume" value="106" />
+		<ctl name="DEC4 Volume" value="106" />
 	</path>
 
 	<path name="rec-stereo-mic-jam">
@@ -1015,24 +1015,24 @@
 
 	<path name="rec-high-gain-main-mic">
 		<path name="main-mic" />
-		<ctl name="DEC2 Volume" value="84" />
+		<ctl name="DEC2 Volume" value="106" />
 	</path>
 
 	<path name="rec-high-gain-sub-mic">
 		<path name="sub-mic" />
-		<ctl name="DEC4 Volume" value="84" />
+		<ctl name="DEC4 Volume" value="106" />
 	</path>
 
 	<path name="rec-high-gain-headset-mic">
 		<path name="ear-mic" />
 		<ctl name="ADC2 Volume" value="14" />
-		<ctl name="DEC5 Volume" value="84" />
+		<ctl name="DEC5 Volume" value="106" />
 	</path>
 
 	<path name="rec-high-gain-stereo-mic">
 		<path name="sub-3rd-mic" />
-		<ctl name="DEC2 Volume" value="84" />
-		<ctl name="DEC4 Volume" value="84" />
+		<ctl name="DEC2 Volume" value="106" />
+		<ctl name="DEC4 Volume" value="106" />
 	</path>
 
 	<path name="rec-NS-mic-interview">

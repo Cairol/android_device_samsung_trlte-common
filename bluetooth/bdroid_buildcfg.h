@@ -18,26 +18,7 @@
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
 
-#include <cutils/properties.h>
-#include <string.h>
-
-static inline const char* BtmGetDefaultName()
-{
-    char product_device[PROPERTY_VALUE_MAX];
-    property_get("ro.product.device", product_device, "");
-
-    if (strstr(product_device, "trlte"))
-        return "Samsung Galaxy Note 4";
-    if (strstr(product_device, "tblte"))
-        return "Samsung Galaxy Note Edge";
-
-    // Fallback to generic name
-    return "Samsung Galaxy Note";
-}
-
-#undef PROPERTY_VALUE_MAX
-
-#define BTM_DEF_LOCAL_NAME 		BtmGetDefaultName()
+#define BTM_DEF_LOCAL_NAME              "Samsung Galaxy Note 4"
 
 #define BTE_BLE_STACK_CONF_FILE         "/etc/bluetooth/bt_stack.conf"
 

@@ -334,6 +334,8 @@
     <!-- Enable doze powersaving -->
     <bool name="config_enableWifiDisplay">true</bool>
 
+    <bool name="config_wifiDisplaySupportsProtectedBuffers">true</bool>
+
     <!-- Panel auto-brightness configuration value -->
     <!--integer name="config_panelAutoBrightnessValue">1</integer-->
 
@@ -440,5 +442,17 @@
 
     <!-- Whether to enable Qualcomm Boost Framework -->
     <bool name="config_enableQcCpuBoost">true</bool>
- 
+
+    <!-- Disable rounded corners on windows to improve graphics performance -->
+    <bool name="config_supportsRoundedCornersOnWindows">false</bool>
+
+    <!-- The list of components which should be automatically disabled for a specific device. -->
+    <string-array name="config_deviceDisabledComponents" translatable="false">
+        <item>com.google.android.gms/com.google.android.gms.nearby.messages.service.NearbyMessagesService</item>
+    </string-array>
+
+    <!-- Whether to post reset runnable for all clients. Needed for some older
+         vendor fingerprint HAL implementations. -->
+    <bool name="config_fingerprintPostResetRunnableForAllClients">true</bool>
+
 </resources>
