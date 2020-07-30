@@ -353,7 +353,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-service.lineage
+    android.hardware.vibrator@1.3-service.samsung8084
 
 # Wifi
 PRODUCT_PACKAGES += \
