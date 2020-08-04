@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
+//#define VERBOSE
+
 #include "Sensors.h"
-#include "convert.h"
+#include <sensors/convert.h>
 #include "multihal.h"
 
 #include <android-base/logging.h>
@@ -106,6 +108,9 @@ Sensors::Sensors()
         }
     }
 
+    /* Get us all sensors */
+    setOperationMode(static_cast<hardware::sensors::V1_0::OperationMode>(5555));
+
     mInitCheck = OK;
 }
 
@@ -125,6 +130,10 @@ Return<void> Sensors::getSensorsList(getSensorsList_cb _hidl_cb) {
         SensorInfo *dst = &out[i];
 
         convertFromSensor(*src, dst);
+
+        if (dst->requiredPermission == "com.samsung.permission.SSENSOR") {
+            dst->requiredPermission = "";
+        }
     }
 
     _hidl_cb(out);
