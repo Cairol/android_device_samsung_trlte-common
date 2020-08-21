@@ -51,6 +51,9 @@ sdm.perf_hint_window=50
 debug.sf.disable_gl_backpressure=1
 debug.sf.latch_unsignaled=1
 
+# Fastbootd
+ro.fastbootd.available=true
+    
 # Fingerprint
 fingerprint_enabled=1
 
