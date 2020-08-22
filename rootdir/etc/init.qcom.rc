@@ -425,7 +425,6 @@ on boot
 
     # Audience ES705 UART
     mkdir /data/firmware
-    chmod 0660 /dev/ttyHS3
     chmod 0770 /data/firmware
     chown system system /data/firmware
 
@@ -1228,6 +1227,7 @@ on property:sys.boot_completed=1
 
     #Audience ES705 UART
     # Late chown to make sure the kernel can access the device
+	chmod 0660 /dev/ttyHS3
     chown media audio /dev/ttyHS3
 
 on property:ro.data.large_tcp_window_size=true
