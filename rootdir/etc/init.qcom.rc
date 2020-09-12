@@ -88,12 +88,6 @@ on fs
     write /sys/kernel/boot_adsp/boot 1
     setprop qcom.audio.init complete
 
-    # Sensors service
-    mkdir /persist/sensors 0771 system system
-    write /persist/sensors/sensors_settings 1
-    chmod 660 /persist/sensors/sensors_settings
-    restorecon_recursive /persist/sensors
-
 on post-fs
     # Increase max readahead size to 1024 KB
     write /sys/block/mmcblk0/queue/read_ahead_kb 1024
@@ -1308,11 +1302,6 @@ service irsc_util /system/vendor/bin/irsc_util "/system/vendor/etc/sec_config"
     class main
     user root
     oneshot
-
-service sensors /system/vendor/bin/sensors.qcom
-    class core
-    user root
-    group root
 
 service rmt_storage /system/vendor/bin/rmt_storage
     class core
